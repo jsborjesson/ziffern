@@ -16,8 +16,8 @@ describe Ziffern do
 
   context 'numbers up to 20' do
     test_german_numbers({
-      0 => "null",
-      1 => "eins",
+      0  => "null",
+      1  => "eins",
       13 => "dreizehn",
       19 => "neunzehn",
     })
@@ -37,6 +37,15 @@ describe Ziffern do
       100 => "einhundert",
       234 => "zweihundertvierunddreißig",
       999 => "neunhundertneunundneunzig",
+    })
+  end
+
+  context 'up to one million' do
+    test_german_numbers({
+      1000    => "eintausend",
+      1234    => "eintausendzweihundertvierunddreißig",
+      10_000  => "zehntausend",
+      999_999 => "neunhundertneunundneunzigtausendneunhundertneunundneunzig",
     })
   end
 

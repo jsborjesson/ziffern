@@ -10,22 +10,27 @@ class Ziffern
     %W( #{prefix}illion #{prefix}illiarde )
   }
 
+
   def to_german(number)
-    if number < 20
-      zero_to_20(number)
-    elsif number < 100
-      twenty_to_99(number)
-    elsif number < 1000
-      hundred_to_999(number)
+    if number == 1
+      'eins'
+    else
+      convert(number)
     end
   end
 
   private
-  def zero_to_20(number)
-    if number == 1
-      'eins'
-    elsif number < 20
+
+  # recursable conversion function, avoids the ein/eins-edge case
+  def convert(number)
+    if number < 20
       NINETEEN[number]
+    elsif number < 100
+      twenty_to_99(number)
+    elsif number < 1000
+      hundred_to_999(number)
+    elsif number < 1000_000
+      thousand_to_999_999(number)
     end
   end
 
@@ -44,7 +49,17 @@ class Ziffern
     "hundert".tap do |str|
       str.prepend NINETEEN[hundred]
 
-      str << to_german(remainder) unless remainder.zero?
+      str << convert(remainder) unless remainder.zero?
+    end
+  end
+
+  def thousand_to_999_999(number)
+    thousand, remainder = number.divmod(1000)
+
+    "tausend".tap do |str|
+      str.prepend convert(thousand)
+
+      str << convert(remainder) unless remainder.zero?
     end
   end
 end
