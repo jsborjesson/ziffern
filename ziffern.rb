@@ -11,10 +11,8 @@ class Ziffern
   }
 
   def to_german(number)
-    if number == 1
-      'eins'
-    elsif number < 20
-      NINETEEN[number]
+    if number < 20
+      zero_to_20(number)
     elsif number < 100
       twenty_to_99(number)
     elsif number < 1000
@@ -23,6 +21,14 @@ class Ziffern
   end
 
   private
+  def zero_to_20(number)
+    if number == 1
+      'eins'
+    elsif number < 20
+      NINETEEN[number]
+    end
+  end
+
   def twenty_to_99(number)
     ten, remainder = number.divmod(10)
 
