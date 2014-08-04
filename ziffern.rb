@@ -9,11 +9,31 @@ class Ziffern
     if number < 20
       NINETEEN[number]
     elsif number < 100
-      ten, single = number.divmod(10)
+      hundreds(number)
+    elsif number < 1000
+      thousands(number)
+    end
+  end
 
-      TENS[ten].tap do |str|
-        str.prepend("#{NINETEEN[single]}und") unless single.zero?
-      end
+  private
+  def hundreds(number)
+    ten, remainder = number.divmod(10)
+
+    # without dup this changes the array and causes very weird bugs
+    TENS[ten].dup.tap do |str|
+      str.prepend("#{to_german(remainder)}und") unless remainder.zero?
+    end
+  end
+
+  def thousands(number)
+    hundred, remainder = number.divmod(100)
+
+    "hundert".tap do |str|
+      str.prepend 'ein' if hundred == 1 # edge case
+      str.prepend NINETEEN[hundred] if hundred >= 2
+
+      str << to_german(remainder) unless remainder.zero?
     end
   end
 end
+
