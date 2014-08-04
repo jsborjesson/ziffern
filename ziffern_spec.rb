@@ -10,4 +10,10 @@ describe Ziffern do
     expect(subject.to_german(19)).to eq "neunzehn"
   end
 
+  it 'converts numbers between 20 and 100' do
+    expect(subject.to_german(20)).to eq "zwanzig"
+    expect(subject.to_german(63)).to eq "dreiundsechzig"
+    expect(subject.to_german(99)).to eq "neunundneunzig"
+  end
+
 end
