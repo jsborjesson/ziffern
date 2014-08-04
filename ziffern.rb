@@ -6,9 +6,9 @@ class Ziffern
   TENS = %w{ zwanzig dreißig vierzig fünfzig sechzig siebzig achtzig neunzig }.unshift(nil, nil)
 
   # http://de.wikipedia.org/wiki/Zahlennamen
-  BIG = [nil, 'tausend'] + %w{ M B Tr Quadr Quint Sext Sept Okt Non Dez}.flat_map { |prefix|
+  BIG = %w{ M B Tr Quadr Quint Sext Sept Okt Non Dez }.flat_map { |prefix|
     %W( #{prefix}illion #{prefix}illiarde )
-  }
+  }.unshift(nil, nil)
 
 
   def to_german(number)
