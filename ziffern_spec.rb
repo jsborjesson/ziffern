@@ -4,23 +4,39 @@ describe Ziffern do
 
   subject { Ziffern.new }
 
-  it 'converts numbers under 20' do
-    expect(subject.to_german(0)).to eq "null"
-    expect(subject.to_german(1)).to eq "eins"
-    expect(subject.to_german(13)).to eq "dreizehn"
-    expect(subject.to_german(19)).to eq "neunzehn"
+  def self.test_german_numbers(hash)
+    hash.each do |integer, german|
+      instance_eval do
+        it "converts #{integer} to #{german}" do
+          expect(subject.to_german(integer)).to eq german
+        end
+      end
+    end
   end
 
-  it 'converts numbers between 20 and 100' do
-    expect(subject.to_german(20)).to eq "zwanzig"
-    expect(subject.to_german(63)).to eq "dreiundsechzig"
-    expect(subject.to_german(99)).to eq "neunundneunzig"
+  context 'numbers up to 20' do
+    test_german_numbers({
+      0 => "null",
+      1 => "eins",
+      13 => "dreizehn",
+      19 => "neunzehn",
+    })
   end
 
-  it 'converts numbers between 100 and 1000' do
-    expect(subject.to_german(100)).to eq "einhundert"
-    expect(subject.to_german(234)).to eq "zweihundertvierunddreißig"
-    expect(subject.to_german(999)).to eq "neunhundertneunundneunzig"
+  context 'numbers up to 100' do
+    test_german_numbers({
+      20 => "zwanzig",
+      63 => "dreiundsechzig",
+      99 => "neunundneunzig",
+    })
+  end
+
+  context 'numbers up to 1000' do
+    test_german_numbers({
+      100 => "einhundert",
+      234 => "zweihundertvierunddreißig",
+      999 => "neunhundertneunundneunzig",
+    })
   end
 
 end
