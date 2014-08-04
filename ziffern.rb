@@ -16,14 +16,14 @@ class Ziffern
     elsif number < 20
       NINETEEN[number]
     elsif number < 100
-      tens(number)
+      twenty_to_99(number)
     elsif number < 1000
-      hundreds(number)
+      hundred_to_999(number)
     end
   end
 
   private
-  def tens(number)
+  def twenty_to_99(number)
     ten, remainder = number.divmod(10)
 
     # without dup this changes the array and causes very weird bugs
@@ -32,7 +32,7 @@ class Ziffern
     end
   end
 
-  def hundreds(number)
+  def hundred_to_999(number)
     hundred, remainder = number.divmod(100)
 
     "hundert".tap do |str|
