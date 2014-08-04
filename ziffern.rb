@@ -48,7 +48,6 @@ class Ziffern
 
     "hundert".tap do |str|
       str.prepend NINETEEN[hundred]
-
       str << convert(remainder) unless remainder.zero?
     end
   end
@@ -58,7 +57,6 @@ class Ziffern
 
     "tausend".tap do |str|
       str.prepend convert(thousand)
-
       str << convert(remainder) unless remainder.zero?
     end
   end
