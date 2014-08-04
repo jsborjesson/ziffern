@@ -26,6 +26,7 @@ describe Ziffern do
   context 'numbers up to 100' do
     test_german_numbers({
       20 => "zwanzig",
+      21 => "einundzwanzig",
       63 => "dreiundsechzig",
       99 => "neunundneunzig",
     })

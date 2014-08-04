@@ -1,6 +1,6 @@
 class Ziffern
 
-  NINETEEN = %w{ null eins zwei drei vier fünf sechs sieben acht neun zehn elf zwölf
+  NINETEEN = %w{ null ein zwei drei vier fünf sechs sieben acht neun zehn elf zwölf
                  dreizehn vierzehn fünfzehn sechzehn siebzehn achtzehn neunzehn }
 
   TENS = %w{ zwanzig dreißig vierzig fünfzig sechzig siebzig achtzig neunzig }.unshift(nil, nil)
@@ -11,7 +11,9 @@ class Ziffern
   }
 
   def to_german(number)
-    if number < 20
+    if number == 1
+      'eins'
+    elsif number < 20
       NINETEEN[number]
     elsif number < 100
       tens(number)
@@ -26,7 +28,7 @@ class Ziffern
 
     # without dup this changes the array and causes very weird bugs
     TENS[ten].dup.tap do |str|
-      str.prepend("#{to_german(remainder)}und") unless remainder.zero?
+      str.prepend("#{NINETEEN[remainder]}und") unless remainder.zero?
     end
   end
 
@@ -34,8 +36,7 @@ class Ziffern
     hundred, remainder = number.divmod(100)
 
     "hundert".tap do |str|
-      str.prepend 'ein' if hundred == 1 # edge case
-      str.prepend NINETEEN[hundred] if hundred >= 2
+      str.prepend NINETEEN[hundred]
 
       str << to_german(remainder) unless remainder.zero?
     end
