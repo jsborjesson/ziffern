@@ -35,10 +35,11 @@ class Ziffern
     decimals = number.to_s[/\.(\d+)/, 1]
     return '' if decimals.nil?
 
-    decimals
-      .chars.map(&:to_i)
-      .map { |digit| to_german(digit) }
-      .join(' ').prepend(' Komma ')
+    ' Komma ' +
+      decimals
+        .chars.map(&:to_i)
+        .map { |digit| to_german(digit) }
+        .join(' ')
   end
 
   def twenty_to_99(number)
