@@ -15,7 +15,7 @@ class Ziffern
     return 'eins' if number == 1
     return "minus #{to_german(number.abs)}" if number < 0
 
-    convert(number.to_i)
+    convert(number.to_i) + convert_decimals(number)
   end
 
   private
@@ -28,6 +28,17 @@ class Ziffern
     when 1000..999_999 then reduce_by_factor(1000, 'tausend', number)
     else bignums(number)
     end
+  end
+
+  def convert_decimals(number)
+     # get decimals, floating point math sucks so string is easier
+    decimals = number.to_s[/.+\.(\d+)/, 1]
+    return '' if decimals.nil?
+    decimals
+      .chars.map(&:to_i)     # array of ints
+      .map { |digit| to_german(digit) }
+      .join(' ')
+      .prepend(' Komma ')
   end
 
   def twenty_to_99(number)

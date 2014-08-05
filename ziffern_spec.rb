@@ -65,10 +65,21 @@ describe Ziffern do
 
   context 'negative numbers' do
     test_german_numbers({
+      -1 => "minus eins",
       -20 => "minus zwanzig",
       -21 => "minus einundzwanzig",
       -63 => "minus dreiundsechzig",
       -99 => "minus neunundneunzig",
+    })
+  end
+
+
+  context 'decimals' do
+    test_german_numbers({
+      0.1234 => "null Komma eins zwei drei vier",
+      -5.6 => "minus fünf Komma sechs",
+      5.6789 => "fünf Komma sechs sieben acht neun",
+      -567.89 => "minus fünfhundertsiebenundsechzig Komma acht neun",
     })
   end
 
