@@ -12,28 +12,21 @@ class Ziffern
 
 
   def to_german(number)
-    if number == 1
-      'eins' # edge case
-    elsif number < 0
-      "minus " << convert(number.abs)
-    else
-      convert(number)
-    end
+    return 'eins' if number == 1
+    return "minus #{to_german(number.abs)}" if number < 0
+
+    convert(number.to_i)
   end
 
   private
 
   def convert(number)
-    if number < 20
-      NINETEEN[number]
-    elsif number < 100
-      twenty_to_99(number)
-    elsif number < 1000
-      reduce_by_factor(100, 'hundert', number)
-    elsif number < 1000_000
-      reduce_by_factor(1000, 'tausend', number)
-    else
-      bignums(number)
+    case number
+    when 0..19         then NINETEEN[number]
+    when 20..99        then twenty_to_99(number)
+    when 100..999      then reduce_by_factor(100,  'hundert', number)
+    when 1000..999_999 then reduce_by_factor(1000, 'tausend', number)
+    else bignums(number)
     end
   end
 
