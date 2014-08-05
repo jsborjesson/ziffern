@@ -62,32 +62,32 @@ class Ziffern
   def bignums(number)
     number_of_millions, remainder = number.divmod(1000_000)
 
-    result = illions(number_of_millions)
-    result << " #{convert(remainder)}" unless remainder.zero?
-    result
+    convert_millions(number_of_millions).tap do |result|
+      result << " " << convert(remainder) unless remainder.zero?
+    end
   end
 
-  def illions(number_of_millions)
-    groups = group_with_illions(number_of_millions)
+  def convert_millions(number_of_millions)
+    groups = group_with_big_names(number_of_millions)
     fail ArgumentError, 'Number too large' if groups.size > BIG.size
     groups
       .reject { |amount, *| amount.zero? }
-      .map { |amount, illion| quantify_illion(amount, illion) }
+      .map { |amount, name| quantify_big_name(amount, name) }
       .join(' ')
   end
 
-  def quantify_illion(amount, illion)
+  def quantify_big_name(amount, big_name)
     # handle ein/eine
     quantity = amount == 1 ? 'eine' : convert(amount)
 
-    # pluralize illion
-    illion   = illion.sub(/(e?)$/, 'en') unless amount == 1
+    # pluralize big_name
+    big_name   = big_name.sub(/(e?)$/, 'en') unless amount == 1
 
-    "#{quantity} #{illion}"
+    "#{quantity} #{big_name}"
   end
 
   # 12345678 => [[12, "Billion"], [345, "Milliarde"], [678, "Million"]]
-  def group_with_illions(number_of_millions)
+  def group_with_big_names(number_of_millions)
     groups = []
 
     until number_of_millions.zero?
