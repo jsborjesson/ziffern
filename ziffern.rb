@@ -13,7 +13,7 @@ class Ziffern
 
   def to_german(number)
     if number == 1
-      'eins'
+      'eins' # edge case
     else
       convert(number)
     end
@@ -21,7 +21,6 @@ class Ziffern
 
   private
 
-  # recursable conversion function, avoids the ein/eins-edge case
   def convert(number)
     if number < 20
       NINETEEN[number]
@@ -57,23 +56,24 @@ class Ziffern
   def bignums(number)
     big, normal = number.divmod(1000_000)
 
-    result = illions(group_by_3_reverse(big))
+    result = illions(big)
     result << " " << convert(normal) unless normal.zero?
     result
   end
 
-  def illions(groups_of_3)
-    groups_of_3
+  def illions(number_of_millions)
+    group_by_3_reverse(number_of_millions)
       .zip(BIG)
-      .reject { |amount, *| amount.zero? } # remove pairs with a value of zero
-      .reverse
+      .reject { |amount, *| amount.zero? }
       .map { |amount, illion| quantify_illion(amount, illion) }
+      .reverse
       .join(' ')
   end
 
   def quantify_illion(amount, illion)
     # handle ein/eine
-    quantity = amount == 1 ? 'eine' : convert(amount) 
+    quantity = amount == 1 ? 'eine' : convert(amount)
+
     # pluralize illion
     illion   = illion.sub(/(e?)$/, 'en') unless amount == 1
 
@@ -84,8 +84,8 @@ class Ziffern
   def group_by_3_reverse(number)
     [].tap do |groups|
       until number.zero?
-        number, end_group = number.divmod(1000)
-        groups << end_group
+        number, group = number.divmod(1000)
+        groups << group
       end
     end
   end
