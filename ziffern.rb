@@ -7,9 +7,9 @@ class Ziffern
 
   TENS = %w{ zwanzig dreißig vierzig fünfzig sechzig siebzig achtzig neunzig }.unshift(nil, nil)
 
-  BIG = %w{ M B Tr Quadr Quint Sext Sept Okt Non Dez }.flat_map { |prefix|
+  BIG = %w{ M B Tr Quadr Quint Sext Sept Okt Non Dez }.flat_map do |prefix|
     %W( #{prefix}illion #{prefix}illiarde )
-  }
+  end
 
 
   def to_german(number)
