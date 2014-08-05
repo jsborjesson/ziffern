@@ -62,7 +62,9 @@ class Ziffern
   end
 
   def illions(number_of_millions)
-    group_by_3_reverse(number_of_millions)
+    groups = group_by_3_reverse(number_of_millions)
+    fail ArgumentError, 'Number too large' if groups.size > BIG.size
+    groups
       .zip(BIG)
       .reject { |amount, *| amount.zero? }
       .map { |amount, illion| quantify_illion(amount, illion) }
@@ -90,3 +92,4 @@ class Ziffern
     end
   end
 end
+

@@ -55,7 +55,12 @@ describe Ziffern do
       2_204_510 => "zwei Millionen zweihundertviertausendfünfhundertzehn",
       1_203_400_021 => "eine Milliarde zweihundertdrei Millionen vierhunderttausendeinundzwanzig",
       3_000_000_000_000_099 => "drei Billiarden neunundneunzig",
+      10 ** 63 => "eine Dezilliarde"
     })
+  end
+
+  it 'throws an ArgumentError if the number is bigger than it can handle' do
+    expect { subject.to_german(10 ** 66) }.to raise_error ArgumentError
   end
 
 end
