@@ -4,13 +4,12 @@
 
 ```ruby
 converter = Ziffern.new
-[1, 5, 99, 12345, 987654321].each do |number|
+[1, -5, 99.99, 10**63].each do |number|
   puts converter.to_german(number)
 end
 
 # >> eins
-# >> fünf
-# >> neunundneunzig
-# >> zwölftausenddreihundertfünfundvierzig
-# >> neunhundertsiebenundachtzig Millionen sechshundertvierundfünfzigtausenddreihunderteinundzwanzig
+# >> minus fünf
+# >> neunundneunzig Komma neun neun
+# >> eine Dezilliarde
 ```
