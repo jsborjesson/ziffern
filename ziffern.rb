@@ -45,9 +45,10 @@ class Ziffern
   def twenty_to_99(number)
     ten, remainder = number.divmod(10)
 
-    # without dup this changes the array and causes very weird bugs
-    TENS[ten].dup.tap do |str|
-      str.prepend("#{NINETEEN[remainder]}und") unless remainder.zero?
+    if remainder.zero?
+      TENS[ten]
+    else
+      "#{NINETEEN[remainder]}und#{TENS[ten]}"
     end
   end
 
