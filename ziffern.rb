@@ -48,27 +48,25 @@ class Ziffern
     amount, remainder = number.divmod(factor)
 
     word.tap do |str|
-      str.prepend convert(amount)
+      str.prepend(convert(amount))
       str << convert(remainder) unless remainder.zero?
     end
   end
 
   def bignums(number)
-    big, normal = number.divmod(1000_000)
+    number_of_millions, remainder = number.divmod(1000_000)
 
-    result = illions(big)
-    result << " " << convert(normal) unless normal.zero?
+    result = illions(number_of_millions)
+    result << " #{convert(remainder)}" unless remainder.zero?
     result
   end
 
   def illions(number_of_millions)
-    groups = group_by_3_reverse(number_of_millions)
+    groups = group_with_illions(number_of_millions)
     fail ArgumentError, 'Number too large' if groups.size > BIG.size
     groups
-      .zip(BIG)
       .reject { |amount, *| amount.zero? }
       .map { |amount, illion| quantify_illion(amount, illion) }
-      .reverse
       .join(' ')
   end
 
@@ -82,14 +80,15 @@ class Ziffern
     "#{quantity} #{illion}"
   end
 
-  # 12345678 => [678, 345, 12]
-  def group_by_3_reverse(number)
-    [].tap do |groups|
-      until number.zero?
-        number, group = number.divmod(1000)
-        groups << group
-      end
+  # 12345678 => [[12, "Billion"], [345, "Milliarde"], [678, "Million"]]
+  def group_with_illions(number_of_millions)
+    groups = []
+
+    until number_of_millions.zero?
+      number_of_millions, last_3 = number_of_millions.divmod(1000)
+      groups << last_3
     end
+
+    groups.zip(BIG).reverse
   end
 end
-
