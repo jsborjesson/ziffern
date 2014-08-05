@@ -14,6 +14,8 @@ class Ziffern
   def to_german(number)
     if number == 1
       'eins' # edge case
+    elsif number < 0
+      "minus " << convert(number.abs)
     else
       convert(number)
     end

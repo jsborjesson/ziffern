@@ -63,4 +63,13 @@ describe Ziffern do
     expect { subject.to_german(10 ** 66) }.to raise_error ArgumentError
   end
 
+  context 'negative numbers' do
+    test_german_numbers({
+      -20 => "minus zwanzig",
+      -21 => "minus einundzwanzig",
+      -63 => "minus dreiundsechzig",
+      -99 => "minus neunundneunzig",
+    })
+  end
+
 end
