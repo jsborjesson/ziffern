@@ -36,7 +36,7 @@ class Ziffern
     return '' if decimals.nil?
 
     decimals
-      .chars.map(&:to_i)     # array of ints
+      .chars.map(&:to_i)
       .map { |digit| to_german(digit) }
       .join(' ').prepend(' Komma ')
   end
