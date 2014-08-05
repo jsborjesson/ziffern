@@ -8,7 +8,7 @@ class Ziffern
   # http://de.wikipedia.org/wiki/Zahlennamen
   BIG = %w{ M B Tr Quadr Quint Sext Sept Okt Non Dez }.flat_map { |prefix|
     %W( #{prefix}illion #{prefix}illiarde )
-  }.unshift(nil, nil)
+  }
 
 
   def to_german(number)
@@ -28,9 +28,11 @@ class Ziffern
     elsif number < 100
       twenty_to_99(number)
     elsif number < 1000
-      hundred_to_999(number)
+      reduce_by_factor(100, 'hundert', number)
     elsif number < 1000_000
-      thousand_to_999_999(number)
+      reduce_by_factor(1000, 'tausend', number)
+    else
+      bignums(number)
     end
   end
 
@@ -43,22 +45,49 @@ class Ziffern
     end
   end
 
-  def hundred_to_999(number)
-    hundred, remainder = number.divmod(100)
+  def reduce_by_factor(factor, word, number)
+    amount, remainder = number.divmod(factor)
 
-    "hundert".tap do |str|
-      str.prepend NINETEEN[hundred]
+    word.tap do |str|
+      str.prepend convert(amount)
       str << convert(remainder) unless remainder.zero?
     end
   end
 
-  def thousand_to_999_999(number)
-    thousand, remainder = number.divmod(1000)
+  def bignums(number)
+    big, normal = number.divmod(1000_000)
 
-    "tausend".tap do |str|
-      str.prepend convert(thousand)
-      str << convert(remainder) unless remainder.zero?
+    result = illions(group_by_3_reverse(big))
+    result << " " << convert(normal) unless normal.zero?
+    result
+  end
+
+  def illions(groups_of_3)
+    # All comments are examples of how the chain manipulates this array
+    groups_of_3 # => 
+      .zip(BIG)
+      .reject { |amount, *| amount.zero? } # remove pairs with a value of zero
+      .reverse
+      .map { |amount, illion| "#{convert(amount)} #{pluralize(illion, amount)}" }
+      .map { |str| str.gsub(/ein /, 'eine ') } # the illions are female
+      .join(' ')
+  end
+
+  def pluralize(word, amount)
+    if amount > 1
+      word + (word.end_with?('e') ? 'n' : 'en')
+    else
+      word
+    end
+  end
+
+  # 12345678 => [678, 345, 12]
+  def group_by_3_reverse(number)
+    [].tap do |groups|
+      until number.zero?
+        number, end_group = number.divmod(1000)
+        groups << end_group
+      end
     end
   end
 end
-

@@ -49,4 +49,13 @@ describe Ziffern do
     })
   end
 
+  context 'really big numbers' do
+    test_german_numbers({
+      1_000_000 => "eine Million",
+      2_204_510 => "zwei Millionen zweihundertviertausendfünfhundertzehn",
+      1_203_400_021 => "eine Milliarde zweihundertdrei Millionen vierhunderttausendeinundzwanzig",
+      3_000_000_000_000_099 => "drei Billiarden neunundneunzig",
+    })
+  end
+
 end
