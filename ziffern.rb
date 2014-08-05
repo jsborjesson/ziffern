@@ -31,14 +31,13 @@ class Ziffern
   end
 
   def convert_decimals(number)
-     # get decimals, floating point math sucks so string is easier
     decimals = number.to_s[/.+\.(\d+)/, 1]
     return '' if decimals.nil?
+
     decimals
       .chars.map(&:to_i)     # array of ints
       .map { |digit| to_german(digit) }
-      .join(' ')
-      .prepend(' Komma ')
+      .join(' ').prepend(' Komma ')
   end
 
   def twenty_to_99(number)
