@@ -63,22 +63,21 @@ class Ziffern
   end
 
   def illions(groups_of_3)
-    # All comments are examples of how the chain manipulates this array
-    groups_of_3 # => 
+    groups_of_3
       .zip(BIG)
       .reject { |amount, *| amount.zero? } # remove pairs with a value of zero
       .reverse
-      .map { |amount, illion| "#{convert(amount)} #{pluralize(illion, amount)}" }
-      .map { |str| str.gsub(/ein /, 'eine ') } # the illions are female
+      .map { |amount, illion| quantify_illion(amount, illion) }
       .join(' ')
   end
 
-  def pluralize(word, amount)
-    if amount > 1
-      word + (word.end_with?('e') ? 'n' : 'en')
-    else
-      word
-    end
+  def quantify_illion(amount, illion)
+    # handle ein/eine
+    quantity = amount == 1 ? 'eine' : convert(amount) 
+    # pluralize illion
+    illion   = illion.sub(/(e?)$/, 'en') unless amount == 1
+
+    "#{quantity} #{illion}"
   end
 
   # 12345678 => [678, 345, 12]
