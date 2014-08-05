@@ -81,7 +81,7 @@ class Ziffern
     quantity = amount == 1 ? 'eine' : convert(amount)
 
     # pluralize big_name
-    big_name   = big_name.sub(/(e?)$/, 'en') unless amount == 1
+    big_name = big_name.sub(/(e?)$/, 'en') unless amount == 1
 
     "#{quantity} #{big_name}"
   end
