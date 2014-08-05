@@ -32,7 +32,7 @@ class Ziffern
   end
 
   def convert_decimals(number)
-    decimals = number.to_s[/.+\.(\d+)/, 1]
+    decimals = number.to_s[/\.(\d+)/, 1]
     return '' if decimals.nil?
 
     decimals
