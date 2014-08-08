@@ -33,7 +33,7 @@ class Ziffern
 
   def convert_decimals(number)
     decimals = number.to_s[/\.(\d+)/, 1]
-    return '' if decimals.nil?
+    return '' if decimals.nil? || decimals.to_i.zero?
 
     decimals
       .chars.map(&:to_i)
