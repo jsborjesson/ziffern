@@ -11,7 +11,6 @@ class Ziffern
     %W( #{prefix}illion #{prefix}illiarde )
   end
 
-  # TODO: get_decimals, convert_digits
 
   def to_german(number)
     convert_integer(number) + convert_decimals(number)
@@ -37,17 +36,22 @@ class Ziffern
   end
 
   def convert_decimals(number)
-    decimals = get_decimals_as_array(number)
-    return '' if decimals.empty? || decimals.all?(&:zero?)
+    return '' unless has_decimals?(number)
+    decimals = get_decimals_as_string(number)
 
-    decimals
-      .map { |digit| convert_integer(digit) }
-      .join(' ')
-      .prepend(' Komma ')
+    ' Komma ' + convert_digits(decimals)
   end
 
-  def get_decimals_as_array(number)
-    number.to_s[/\.(\d+)/, 1].to_s.chars.map(&:to_i)
+  def has_decimals?(number)
+    number.to_f % 1 != 0
+  end
+
+  def get_decimals_as_string(number)
+    number.to_s[/\.(\d+)/, 1].to_s
+  end
+
+  def convert_digits(number)
+    number.to_s.chars.map { |digit| convert_integer(digit) }.join(' ')
   end
 
   def twenty_to_99(number)
