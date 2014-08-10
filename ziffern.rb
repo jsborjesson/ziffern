@@ -78,7 +78,7 @@ class Ziffern
     number_of_millions, remainder = number.divmod(1000_000)
 
     convert_millions(number_of_millions).tap do |result|
-      result << " " << convert(remainder) unless remainder.zero?
+      result << " " << convert_integer(remainder) unless remainder.zero?
     end
   end
 
