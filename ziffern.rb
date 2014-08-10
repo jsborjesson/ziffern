@@ -11,15 +11,18 @@ class Ziffern
     %W( #{prefix}illion #{prefix}illiarde )
   end
 
-
   def to_german(number)
-    return 'eins' if number == 1
-    return "minus #{to_german(number.abs)}" if number < 0
-
-    convert(number.to_i) + convert_decimals(number)
+    convert_integer(number) + convert_decimals(number)
   end
 
   private
+
+  def convert_integer(number)
+    number = number.to_i
+    return 'eins' if number == 1
+    return "minus #{convert_integer(number.abs)}" if number < 0
+    convert(number)
+  end
 
   def convert(number)
     case number
@@ -37,7 +40,7 @@ class Ziffern
 
     decimals
       .chars.map(&:to_i)
-      .map { |digit| to_german(digit) }
+      .map { |digit| convert_integer(digit) }
       .join(' ')
       .prepend(' Komma ')
   end
