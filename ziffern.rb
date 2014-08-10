@@ -23,6 +23,7 @@ class Ziffern
     number = number.to_i
     return 'eins' if number == 1
     return "minus #{convert_integer(number.abs)}" if number < 0
+
     convert(number)
   end
 
@@ -34,21 +35,6 @@ class Ziffern
     when 1000..999_999 then quantify_factor(1000, 'tausend', number)
     else bignums(number)
     end
-  end
-
-  def convert_decimals(number)
-    decimals = get_decimals_as_string(number)
-    return '' if decimals.empty?
-
-    ' Komma ' + convert_digits(decimals)
-  end
-
-  def get_decimals_as_string(number)
-    number.to_s[/\.(\d+)/, 1].to_s
-  end
-
-  def convert_digits(number)
-    number.to_s.chars.map { |digit| convert_integer(digit) }.join(' ')
   end
 
   def twenty_to_99(number)
@@ -109,4 +95,20 @@ class Ziffern
 
     groups.zip(BIG).reverse
   end
+
+  def convert_decimals(number)
+    decimals = get_decimals_as_string(number)
+    return '' if decimals.empty?
+
+    ' Komma ' + convert_digits(decimals)
+  end
+
+  def get_decimals_as_string(number)
+    number.to_s[/\.(\d+)/, 1].to_s
+  end
+
+  def convert_digits(number)
+    number.to_s.chars.map { |digit| convert_integer(digit) }.join(' ')
+  end
+
 end
