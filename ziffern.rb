@@ -75,11 +75,12 @@ class Ziffern
   end
 
   def quantify_big_name(amount, big_name)
-    # handle ein/eine
-    quantity = amount == 1 ? 'eine' : convert(amount)
-
-    # pluralize big_name
-    big_name = big_name.sub(/(e?)$/, 'en') unless amount == 1
+    if amount == 1
+      quantity = 'eine'
+    else
+      quantity = convert(amount)
+      big_name = big_name.sub(/(e?)$/, 'en')
+    end
 
     "#{quantity} #{big_name}"
   end
