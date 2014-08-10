@@ -77,10 +77,11 @@ describe Ziffern do
   context 'decimals' do
     test_german_numbers({
       0.1234 => "null Komma eins zwei drei vier",
-      -5.6 => "minus fünf Komma sechs",
       5.6789 => "fünf Komma sechs sieben acht neun",
+      -5.6 => "minus fünf Komma sechs",
       -567.89 => "minus fünfhundertsiebenundsechzig Komma acht neun",
-      5.0 => "fünf"
+      5.0 => "fünf",
+      '5.00' => "fünf"
     })
   end
 
