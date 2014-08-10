@@ -2,7 +2,7 @@
 
 **Number to text, in _German_!**
 
-Handles _positive and negative_ numbers between **zero** and **10<sup>63</sup>**, with _unlimited decimals_.
+Handles _positive and negative_ numbers up to **125 digits**, with _unlimited decimals_.
 
 ```ruby
 require 'ziffern'
