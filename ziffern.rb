@@ -14,25 +14,23 @@ class Ziffern
 
 
   def to_german(number)
+    return "minus #{to_german(-number)}" if number.to_f < 0
     convert_integer(number) + convert_decimals(number)
   end
 
   private
 
   def convert_integer(number)
-    number = number.to_i
-    return 'eins' if number == 1
-    return "minus #{convert_integer(number.abs)}" if number < 0
-
-    convert(number)
+    convert(number.to_i, 'eins')
   end
 
-  def convert(number)
+  def convert(number, one='ein')
     case number
+    when 1             then one
     when 0..19         then NINETEEN[number]
     when 20..99        then twenty_to_99(number)
-    when 100..999      then quantify_factor(100,  'hundert', number)
-    when 1000..999_999 then quantify_factor(1000, 'tausend', number)
+    when 100..999      then quantify_by_factor(100,  'hundert', number)
+    when 1000..999_999 then quantify_by_factor(1000, 'tausend', number)
     else bignums(number)
     end
   end
@@ -47,7 +45,7 @@ class Ziffern
     end
   end
 
-  def quantify_factor(factor, name, number)
+  def quantify_by_factor(factor, name, number)
     amount, remainder = number.divmod(factor)
 
     result = convert(amount) + name
@@ -75,12 +73,8 @@ class Ziffern
   end
 
   def quantify_big_name(amount, big_name)
-    if amount == 1
-      quantity = 'eine'
-    else
-      quantity = convert(amount)
-      big_name = big_name.sub(/(e?)$/, 'en')
-    end
+    quantity = convert(amount, 'eine')
+    big_name = big_name.sub(/(e?)$/, 'en') unless amount == 1
 
     "#{quantity} #{big_name}"
   end
@@ -111,5 +105,4 @@ class Ziffern
   def convert_digits(number)
     number.to_s.chars.map { |digit| convert_integer(digit) }.join(' ')
   end
-
 end
