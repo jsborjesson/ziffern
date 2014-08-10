@@ -30,8 +30,8 @@ class Ziffern
     case number
     when 0..19         then NINETEEN[number]
     when 20..99        then twenty_to_99(number)
-    when 100..999      then reduce_by_factor(100,  'hundert', number)
-    when 1000..999_999 then reduce_by_factor(1000, 'tausend', number)
+    when 100..999      then quantify_factor(100,  'hundert', number)
+    when 1000..999_999 then quantify_factor(1000, 'tausend', number)
     else bignums(number)
     end
   end
@@ -65,12 +65,12 @@ class Ziffern
     end
   end
 
-  def reduce_by_factor(factor, word, number)
+  def quantify_factor(factor, name, number)
     amount, remainder = number.divmod(factor)
 
-    word.tap do |str|
-      str.prepend(convert(amount))
-      str << convert(remainder) unless remainder.zero?
+    result = convert(amount) + name
+    result.tap do |result|
+      result << convert(remainder) unless remainder.zero?
     end
   end
 
@@ -85,6 +85,7 @@ class Ziffern
   def convert_millions(number_of_millions)
     groups = group_with_big_names(number_of_millions)
     fail ArgumentError, 'Number too large' if groups.size > BIG.size
+
     groups
       .reject { |amount, *| amount.zero? }
       .map { |amount, name| quantify_big_name(amount, name) }
