@@ -37,14 +37,10 @@ class Ziffern
   end
 
   def convert_decimals(number)
-    return '' unless has_decimals?(number)
     decimals = get_decimals_as_string(number)
+    return '' if decimals.empty?
 
     ' Komma ' + convert_digits(decimals)
-  end
-
-  def has_decimals?(number)
-    number.to_f % 1 != 0
   end
 
   def get_decimals_as_string(number)

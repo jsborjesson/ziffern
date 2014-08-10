@@ -8,13 +8,14 @@ Handles _positive and negative_ numbers up to **125 digits**, with _unlimited de
 require 'ziffern'
 converter = Ziffern.new
 
-[1, -5, 99.99, 12345, 10**63].each do |number|
+[1, -5, 12345, 99.99, '0.00', 10**63 + 1].each do |number|
   puts converter.to_german(number)
 end
 
 # >> eins
 # >> minus fünf
-# >> neunundneunzig Komma neun neun
 # >> zwölftausenddreihundertfünfundvierzig
-# >> eine Dezilliarde
+# >> neunundneunzig Komma neun neun
+# >> null Komma null null
+# >> eine Dezilliarde eins
 ```
