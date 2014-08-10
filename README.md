@@ -2,8 +2,12 @@
 
 **Number to text, in _German_!**
 
+Handles _positive and negative_ numbers between **zero** and **10<sup>63</sup>**, with _unlimited decimals_.
+
 ```ruby
+require 'ziffern'
 converter = Ziffern.new
+
 [1, -5, 99.99, 12345, 10**63].each do |number|
   puts converter.to_german(number)
 end
