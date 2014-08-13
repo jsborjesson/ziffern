@@ -51,10 +51,10 @@ class Ziffern
     end
   end
 
-  def quantify_by_factor(factor, name, number)
+  def quantify_by_factor(factor, quantifier, number)
     amount, remainder = number.divmod(factor)
 
-    result = convert(amount) + name
+    result = convert(amount) + quantifier
     result.tap do |result|
       result << convert(remainder) unless remainder.zero?
     end
