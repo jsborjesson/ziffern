@@ -14,20 +14,21 @@ class Ziffern
 
 
   def to_german(number)
-    convert_integer_with_sign(number) + convert_decimals(number)
+    convert_sign(number) + convert_integer(number) + convert_decimals(number)
   end
 
   private
 
-  def convert_integer_with_sign(number)
-    number = number.to_i
-    text = convert_integer(number.abs)
-    text = "minus #{text}" if number < 0
-    text
+  def convert_sign(number)
+    if number.to_i < 0
+      "minus "
+    else
+      ""
+    end
   end
 
   def convert_integer(number)
-    convert(number.to_i, 'eins')
+    convert(number.to_i.abs, 'eins')
   end
 
   def convert(number, one='ein')
