@@ -2,7 +2,7 @@ class Ziffern
 
   # http://de.wikipedia.org/wiki/Zahlennamen
 
-  NINETEEN = %w{ null ein zwei drei vier fünf sechs sieben acht neun zehn elf zwölf
+  NINETEEN = %w{ null eins zwei drei vier fünf sechs sieben acht neun zehn elf zwölf
                  dreizehn vierzehn fünfzehn sechzehn siebzehn achtzehn neunzehn }
 
   TENS = %w{ zwanzig dreißig vierzig fünfzig sechzig siebzig achtzig neunzig }.unshift(nil, nil)
@@ -47,7 +47,7 @@ class Ziffern
     if remainder.zero?
       TENS[ten]
     else
-      "#{NINETEEN[remainder]}und#{TENS[ten]}"
+      "#{convert(remainder)}und#{TENS[ten]}"
     end
   end
 
