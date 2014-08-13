@@ -74,7 +74,6 @@ describe Ziffern do
     })
   end
 
-
   context 'decimals' do
     test_german_numbers({
       0.1234 => "null Komma eins zwei drei vier",
@@ -82,7 +81,14 @@ describe Ziffern do
       -5.6 => "minus fünf Komma sechs",
       -567.89 => "minus fünfhundertsiebenundsechzig Komma acht neun",
       5.0 => "fünf Komma null",
-      '5.00' => "fünf Komma null null"
+    })
+  end
+
+  context 'strings' do
+    test_german_numbers({
+      '-123' => "minus einhundertdreiundzwanzig",
+      '-123.1' => "minus einhundertdreiundzwanzig Komma eins",
+      '5.00' => "fünf Komma null null",
     })
   end
 
