@@ -75,7 +75,7 @@ class Ziffern
     fail ArgumentError, 'Number too large' if groups.size > BIG.size
 
     groups
-      .reject { |amount, *| amount.zero? }
+      .reject { |amount,| amount.zero? }
       .map { |amount, name| quantify_big_name(amount, name) }
       .join(' ')
   end
