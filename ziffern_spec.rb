@@ -81,6 +81,7 @@ describe Ziffern do
       -5.6 => "minus fünf Komma sechs",
       -567.89 => "minus fünfhundertsiebenundsechzig Komma acht neun",
       5.0 => "fünf Komma null",
+      -0.001 => "minus null Komma null null eins"
     })
   end
 

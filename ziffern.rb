@@ -20,7 +20,7 @@ class Ziffern
   private
 
   def convert_sign(number)
-    if number.to_i < 0
+    if number.to_f < 0
       "minus "
     else
       ""
