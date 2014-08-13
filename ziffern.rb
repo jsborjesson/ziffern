@@ -54,18 +54,19 @@ class Ziffern
   def quantify_by_factor(factor, quantifier, number)
     amount, remainder = number.divmod(factor)
 
-    result = convert(amount) + quantifier
-    result.tap do |result|
-      result << convert(remainder) unless remainder.zero?
-    end
+    text = convert(amount) + quantifier
+    text << convert(remainder) unless remainder.zero?
+
+    text
   end
 
   def bignums(number)
     number_of_millions, remainder = number.divmod(1000_000)
 
-    convert_millions(number_of_millions).tap do |result|
-      result << " " << convert_integer(remainder) unless remainder.zero?
-    end
+    text = convert_millions(number_of_millions)
+    text << " " << convert_integer(remainder) unless remainder.zero?
+
+    text
   end
 
   def convert_millions(number_of_millions)
