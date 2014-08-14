@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.1.0
+
+Too large numbers now raise `Ziffern::TooLargeNumberError`.  It is a subclass
+of `ArgumentError` so catching that still works.
+
+Completely invalid inputs now raise `Ziffern::InvalidNumberError` instead of
+wrongly returning `"null"`.
+
 ## v1.0.3
 
 Numbers between 0 and -1 now correctly shown as negative.
