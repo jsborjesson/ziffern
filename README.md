@@ -4,18 +4,21 @@
 
 Handles _positive and negative_ numbers up to **125 digits**, with _unlimited decimals_.
 
+Just create an instance of the class and use the `#to_german` method to convert numbers,
+it accepts floats, integers and strings, and will raise subclasses of `ArgumentError` if
+it is not able to handle what you pass in.
+
 ```ruby
 require 'ziffern'
 converter = Ziffern.new
 
-[1, -5, 12345, 99.99, '0.00', 10**63 + 1].each do |number|
-  puts converter.to_german(number)
-end
-
-# >> eins
-# >> minus fünf
-# >> zwölftausenddreihundertfünfundvierzig
-# >> neunundneunzig Komma neun neun
-# >> null Komma null null
-# >> eine Dezilliarde eins
+converter.to_german 1           # => "eins"
+converter.to_german -5          # => "minus fünf"
+converter.to_german 12345       # => "zwölftausenddreihundertfünfundvierzig"
+converter.to_german 99.99       # => "neunundneunzig Komma neun neun"
+converter.to_german 0.00        # => "null Komma null"
+converter.to_german '0.00'      # => "null Komma null null"
+converter.to_german 10**125     # => "einhundert Vigintilliarden"
+converter.to_german 'invalid'   # ~> Ziffern::InvalidNumberError
+converter.to_german 10**126     # ~> Ziffern::TooLargeNumberError
 ```
