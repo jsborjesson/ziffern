@@ -12,12 +12,19 @@ class Ziffern
     %W( #{prefix}illion #{prefix}illiarde )
   end
 
+  TooLargeNumberError = Class.new(ArgumentError)
+  InvalidNumberError  = Class.new(ArgumentError)
 
   def to_german(number)
+    fail InvalidNumberError unless valid_number?(number)
     convert_sign(number) + convert_integer(number) + convert_decimals(number)
   end
 
   private
+
+  def valid_number?(number)
+    !!number.to_s[/\A-?\d+(\.\d+)?\z/]
+  end
 
   def convert_sign(number)
     if number.to_f < 0
@@ -72,7 +79,7 @@ class Ziffern
 
   def convert_millions(number_of_millions)
     groups = group_with_big_names(number_of_millions)
-    fail ArgumentError, 'Number too large' if groups.size > BIG.size
+    fail TooLargeNumberError if groups.size > BIG.size
 
     groups
       .reject { |amount,| amount.zero? }

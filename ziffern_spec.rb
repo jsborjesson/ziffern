@@ -14,6 +14,16 @@ describe Ziffern do
     end
   end
 
+  context 'error handling' do
+    it 'throws an ArgumentError if the number is bigger than it can handle' do
+      expect { subject.to_german(10 ** 126) }.to raise_error Ziffern::TooLargeNumberError
+    end
+
+    it 'throws an error on faulty input' do
+      expect { subject.to_german("invalid.5") }.to raise_error Ziffern::InvalidNumberError
+    end
+  end
+
   context 'numbers up to 20' do
     test_german_numbers({
       0  => "null",
@@ -58,10 +68,6 @@ describe Ziffern do
       3_000_000_000_000_099 => "drei Billiarden neunundneunzig",
       10 ** 123 => "eine Vigintilliarde"
     })
-  end
-
-  it 'throws an ArgumentError if the number is bigger than it can handle' do
-    expect { subject.to_german(10 ** 126) }.to raise_error ArgumentError
   end
 
   context 'negative numbers' do
