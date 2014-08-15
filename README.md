@@ -2,7 +2,7 @@
 
 **Number to text, in _German_!**
 
-Handles _positive and negative_ numbers up to **125 digits**, with _unlimited decimals_.
+Handles _positive and negative_ numbers up to **126 digits**, with _unlimited decimals_.
 
 Just create an instance of the class and use the `#to_german` method to convert numbers,
 it accepts floats, integers and strings, and will raise subclasses of `ArgumentError` if
