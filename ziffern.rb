@@ -5,7 +5,7 @@ class Ziffern
   NINETEEN = %w{ null eins zwei drei vier fünf sechs sieben acht neun zehn elf zwölf
                  dreizehn vierzehn fünfzehn sechzehn siebzehn achtzehn neunzehn }
 
-  TENS = %w{ zwanzig dreißig vierzig fünfzig sechzig siebzig achtzig neunzig }.unshift(nil, nil)
+  TENS = [nil, nil] + %w{ zwanzig dreißig vierzig fünfzig sechzig siebzig achtzig neunzig }
 
   BIG = %w{
     M B Tr Quadr Quint Sext Sept Okt Non Dez Undez Dodez Tredez
