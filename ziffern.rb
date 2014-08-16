@@ -80,10 +80,10 @@ class Ziffern
   end
 
   def convert_millions(number_of_millions)
-    groups = group_with_big_names(number_of_millions)
-    fail TooLargeNumberError if groups.size > BIG.size
+    pairs = pair_with_big_names(number_of_millions)
+    fail TooLargeNumberError if pairs.size > BIG.size
 
-    groups
+    pairs
       .reject { |amount,| amount.zero? }
       .map { |amount, name| quantify_big_name(amount, name) }
       .join(' ')
@@ -97,15 +97,15 @@ class Ziffern
   end
 
   # 12345678 => [[12, "Billion"], [345, "Milliarde"], [678, "Million"]]
-  def group_with_big_names(number_of_millions)
-    groups = []
+  def pair_with_big_names(number_of_millions)
+    number_groups = []
 
     until number_of_millions.zero?
       number_of_millions, last_3 = number_of_millions.divmod(1000)
-      groups << last_3
+      number_groups << last_3
     end
 
-    groups.zip(BIG).reverse
+    number_groups.zip(BIG).reverse
   end
 
   def convert_decimals(number)
