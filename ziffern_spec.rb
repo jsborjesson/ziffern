@@ -14,16 +14,6 @@ describe Ziffern do
     end
   end
 
-  context 'error handling' do
-    it 'throws an ArgumentError if the number is bigger than it can handle' do
-      expect { subject.to_german(10 ** 126) }.to raise_error Ziffern::TooLargeNumberError
-    end
-
-    it 'throws an error on faulty input' do
-      expect { subject.to_german("invalid.5") }.to raise_error Ziffern::InvalidNumberError
-    end
-  end
-
   context 'numbers up to 20' do
     test_german_numbers({
       0  => "null",
@@ -50,7 +40,7 @@ describe Ziffern do
     })
   end
 
-  context 'up to one million' do
+  context 'numbers up to one million' do
     test_german_numbers({
       1000    => "eintausend",
       1234    => "eintausendzweihundertvierunddreißig",
@@ -84,9 +74,9 @@ describe Ziffern do
     test_german_numbers({
       0.1234 => "null Komma eins zwei drei vier",
       5.6789 => "fünf Komma sechs sieben acht neun",
+      5.0 => "fünf Komma null",
       -5.6 => "minus fünf Komma sechs",
       -567.89 => "minus fünfhundertsiebenundsechzig Komma acht neun",
-      5.0 => "fünf Komma null",
       -0.001 => "minus null Komma null null eins"
     })
   end
@@ -97,6 +87,18 @@ describe Ziffern do
       '-123.1' => "minus einhundertdreiundzwanzig Komma eins",
       '5.00' => "fünf Komma null null",
     })
+  end
+
+  context 'errors' do
+    it 'raises an error if the number is bigger than it can handle' do
+      expect { subject.to_german(10 ** 126) }.to raise_error Ziffern::TooLargeNumberError
+      expect { subject.to_german(-10 ** 126) }.to raise_error Ziffern::TooLargeNumberError
+    end
+
+    it 'raises an error on faulty input' do
+      expect { subject.to_german("invalid") }.to raise_error Ziffern::InvalidNumberError
+      expect { subject.to_german("invalid.5") }.to raise_error Ziffern::InvalidNumberError
+    end
   end
 
 end
