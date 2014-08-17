@@ -98,6 +98,7 @@ describe Ziffern do
     it 'raises an error on faulty input' do
       expect { subject.to_german("invalid") }.to raise_error Ziffern::InvalidNumberError
       expect { subject.to_german("invalid.5") }.to raise_error Ziffern::InvalidNumberError
+      expect { subject.to_german("5.5u") }.to raise_error Ziffern::InvalidNumberError
     end
   end
 
