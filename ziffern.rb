@@ -2,16 +2,16 @@ class Ziffern
 
   # http://de.wikipedia.org/wiki/Zahlennamen
 
-  NINETEEN = %w{ null eins zwei drei vier fünf sechs sieben acht neun zehn elf zwölf
-                 dreizehn vierzehn fünfzehn sechzehn siebzehn achtzehn neunzehn }
+  NINETEEN = %w[ null eins zwei drei vier fünf sechs sieben acht neun zehn elf zwölf
+                 dreizehn vierzehn fünfzehn sechzehn siebzehn achtzehn neunzehn ]
 
-  TENS = [nil, nil] + %w{ zwanzig dreißig vierzig fünfzig sechzig siebzig achtzig neunzig }
+  TENS = [nil, nil] + %w[ zwanzig dreißig vierzig fünfzig sechzig siebzig achtzig neunzig ]
 
-  BIG = %w{
+  BIG = %w[
     M B Tr Quadr Quint Sext Sept Okt Non Dez Undez Dodez Tredez
     Quattuordez Quindez Sedez Septendez Dodevigint Undevigint Vigint
-  }.flat_map do |prefix|
-    %W{ #{prefix}illion #{prefix}illiarde }
+ ].flat_map do |prefix|
+    %W[ #{prefix}illion #{prefix}illiarde ]
   end
 
   TooLargeNumberError = Class.new(ArgumentError)
