@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.1
+
+Just some renamings and tweaks for readability.
+
 ## v1.1.0
 
 Too large numbers now raise `Ziffern::TooLargeNumberError`.  It is a subclass
