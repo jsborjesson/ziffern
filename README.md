@@ -1,4 +1,4 @@
-# Ziffern
+# Ziffern [![Gem Version](https://badge.fury.io/rb/ziffern.svg)](http://rubygems.org/gems/ziffern)
 
 **Number to text, in _German_!**
 
