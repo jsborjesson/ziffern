@@ -6,7 +6,7 @@ Just some renamings and tweaks for readability.
 
 ## v1.1.0
 
-Too large numbers now raise `Ziffern::TooLargeNumberError`.  It is a subclass
+Too large numbers now raise `Ziffern::TooLargeNumberError`. It is a subclass
 of `ArgumentError` so catching that still works.
 
 Completely invalid inputs now raise `Ziffern::InvalidNumberError` instead of
