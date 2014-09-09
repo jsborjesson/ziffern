@@ -22,3 +22,10 @@ converter.to_german 10**125     # => "einhundert Vigintilliarden"
 converter.to_german 'invalid'   # ~> Ziffern::InvalidNumberError
 converter.to_german 10**126     # ~> Ziffern::TooLargeNumberError
 ```
+
+## Testing
+
+```bash
+# ...is the default task
+rake
+```
