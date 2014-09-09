@@ -10,9 +10,9 @@ class Ziffern
   BIG = %w[
     M B Tr Quadr Quint Sext Sept Okt Non Dez Undez Dodez Tredez
     Quattuordez Quindez Sedez Septendez Dodevigint Undevigint Vigint
- ].flat_map do |prefix|
+  ].flat_map { |prefix|
     %W[ #{prefix}illion #{prefix}illiarde ]
-  end
+  }
 
   TooLargeNumberError = Class.new(ArgumentError)
   InvalidNumberError  = Class.new(ArgumentError)
