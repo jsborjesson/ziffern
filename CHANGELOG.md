@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.2
+
+Running the test is now the default task, just run `rake`.
+
+Minor style tweaks.
+
 ## v1.1.1
 
 Just some renamings and tweaks for readability.
