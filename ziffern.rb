@@ -85,7 +85,7 @@ class Ziffern
 
     pairs
       .reject { |amount,| amount.zero? }
-      .map { |amount, name| quantify_big_name(amount, name) }
+      .map    { |amount, name| quantify_big_name(amount, name) }
       .join(' ')
   end
 
