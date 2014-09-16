@@ -51,9 +51,9 @@ describe Ziffern do
 
   context 'really big numbers' do
     test_german_numbers({
-      1_000_000 => "eine Million",
-      1_000_001 => "eine Million eins",
-      2_204_510 => "zwei Millionen zweihundertviertausendfünfhundertzehn",
+      1_000_000     => "eine Million",
+      1_000_001     => "eine Million eins",
+      2_204_510     => "zwei Millionen zweihundertviertausendfünfhundertzehn",
       1_203_400_021 => "eine Milliarde zweihundertdrei Millionen vierhunderttausendeinundzwanzig",
       3_000_000_000_000_099 => "drei Billiarden neunundneunzig",
       10 ** 123 => "eine Vigintilliarde"
@@ -62,7 +62,7 @@ describe Ziffern do
 
   context 'negative numbers' do
     test_german_numbers({
-      -1 => "minus eins",
+      -1  => "minus eins",
       -20 => "minus zwanzig",
       -21 => "minus einundzwanzig",
       -63 => "minus dreiundsechzig",
@@ -72,20 +72,21 @@ describe Ziffern do
 
   context 'decimals' do
     test_german_numbers({
-      0.1234 => "null Komma eins zwei drei vier",
-      5.6789 => "fünf Komma sechs sieben acht neun",
-      5.0 => "fünf Komma null",
-      -5.6 => "minus fünf Komma sechs",
+      0.1234  => "null Komma eins zwei drei vier",
+      5.6789  => "fünf Komma sechs sieben acht neun",
+      5.0     => "fünf Komma null",
+      -5.6    => "minus fünf Komma sechs",
       -567.89 => "minus fünfhundertsiebenundsechzig Komma acht neun",
-      -0.001 => "minus null Komma null null eins"
+      -0.001  => "minus null Komma null null eins"
     })
   end
 
   context 'strings' do
     test_german_numbers({
-      '-123' => "minus einhundertdreiundzwanzig",
+      '-0'     => "null",
+      '-123'   => "minus einhundertdreiundzwanzig",
       '-123.1' => "minus einhundertdreiundzwanzig Komma eins",
-      '5.00' => "fünf Komma null null",
+      '5.00'   => "fünf Komma null null",
     })
   end
 
