@@ -1,4 +1,4 @@
-require './ziffern'
+require_relative '../lib/ziffern'
 
 describe Ziffern do
 
