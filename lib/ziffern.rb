@@ -1,4 +1,5 @@
-class Ziffern
+module Ziffern
+  extend self
 
   # http://de.wikipedia.org/wiki/Zahlennamen
 
@@ -17,7 +18,7 @@ class Ziffern
   TooLargeNumberError = Class.new(ArgumentError)
   InvalidNumberError  = Class.new(ArgumentError)
 
-  def to_german(number)
+  def to_text(number)
     fail InvalidNumberError unless valid_number?(number)
     convert_sign(number) + convert_integer(number) + convert_decimals(number)
   end
