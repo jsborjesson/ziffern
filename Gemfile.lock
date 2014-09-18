@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ziffern (1.1.2)
+    ziffern (2.0.0.alpha)
 
 GEM
   remote: https://rubygems.org/
