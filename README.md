@@ -28,3 +28,12 @@ Ziffern.to_text 10**126    # ~> Ziffern::TooLargeNumberError
 # ...is the default task
 rake
 ```
+
+## Release checklist
+
+- run the tests
+- make sure the readme examples are correct
+- bump the version in `ziffern.gemspec` according to semver.
+- update the changelog
+- `rake release`
+
