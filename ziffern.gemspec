@@ -9,9 +9,9 @@ Gem::Specification.new do |gem|
   gem.homepage      = "https://github.com/alcesleo/ziffern"
   gem.license       = "MIT"
 
-  gem.files         = %w{ README.md ziffern.rb ziffern_spec.rb }
-  gem.test_files    = %w{ ziffern_spec.rb }
-  gem.require_paths = ["."]
+  gem.files         = Dir['Rakefile', 'README*', 'LICENSE*', '{lib,spec}/**/*']
+  gem.test_files    = Dir['spec/**/*']
+  gem.require_paths = ["lib"]
 
   gem.add_development_dependency "bundler", "~> 1.6"
   gem.add_development_dependency "rake", "~> 10.0"
