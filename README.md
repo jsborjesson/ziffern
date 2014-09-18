@@ -10,17 +10,16 @@ it is not able to handle what you pass in.
 
 ```ruby
 require 'ziffern'
-converter = Ziffern.new
 
-converter.to_german 1           # => "eins"
-converter.to_german -5          # => "minus fünf"
-converter.to_german 12345       # => "zwölftausenddreihundertfünfundvierzig"
-converter.to_german 99.99       # => "neunundneunzig Komma neun neun"
-converter.to_german 0.00        # => "null Komma null"
-converter.to_german '0.00'      # => "null Komma null null"
-converter.to_german 10**125     # => "einhundert Vigintilliarden"
-converter.to_german 'invalid'   # ~> Ziffern::InvalidNumberError
-converter.to_german 10**126     # ~> Ziffern::TooLargeNumberError
+Ziffern.to_text 1          # => "eins"
+Ziffern.to_text -5         # => "minus fünf"
+Ziffern.to_text 12345      # => "zwölftausenddreihundertfünfundvierzig"
+Ziffern.to_text 99.99      # => "neunundneunzig Komma neun neun"
+Ziffern.to_text 0.00       # => "null Komma null"
+Ziffern.to_text '0.00'     # => "null Komma null null"
+Ziffern.to_text 10**125    # => "einhundert Vigintilliarden"
+Ziffern.to_text 'invalid'  # ~> Ziffern::InvalidNumberError
+Ziffern.to_text 10**126    # ~> Ziffern::TooLargeNumberError
 ```
 
 ## Testing
