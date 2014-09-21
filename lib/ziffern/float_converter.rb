@@ -3,28 +3,34 @@ require_relative "./big_integer_converter"
 module Ziffern
   class FloatConverter
 
-    def initialize(integer_converter = BigIntegerConverter.new)
-      self.integer_converter = integer_converter
+    def initialize
+      @integer_converter = BigIntegerConverter.new
+      @comma = 'Komma'
     end
 
     def to_text(number)
       fail InvalidNumberError unless valid_number?(number)
-      integer_converter.to_text(number) + convert_decimals(number)
+      convert_float(number)
     end
 
     private
 
-    attr_accessor :integer_converter
+    attr_reader :integer_converter, :comma
 
     def valid_number?(number)
       !!number.to_s[/\A-?\d+(\.\d+)?\z/]
     end
 
-    def convert_decimals(number)
+    def convert_float(number)
+      result = [integer_converter.to_text(number)]
       decimals = get_decimals_as_string(number)
-      return '' if decimals.empty?
 
-      ' Komma ' + convert_digits(decimals)
+      unless decimals.empty?
+        result << comma
+        result << convert_digits(decimals)
+      end
+
+      result.join(' ')
     end
 
     def get_decimals_as_string(number)
