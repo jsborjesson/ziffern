@@ -1,19 +1,10 @@
 module Ziffern
   class IntegerConverter
 
-    # http://de.wikipedia.org/wiki/Zahlennamen
-
     NINETEEN = %w[ null eins zwei drei vier fünf sechs sieben acht neun zehn elf zwölf
                  dreizehn vierzehn fünfzehn sechzehn siebzehn achtzehn neunzehn ]
 
     TENS = [nil, nil] + %w[ zwanzig dreißig vierzig fünfzig sechzig siebzig achtzig neunzig ]
-
-    BIG = %w[
-    M B Tr Quadr Quint Sext Sept Okt Non Dez Undez Dodez Tredez
-    Quattuordez Quindez Sedez Septendez Dodevigint Undevigint Vigint
-    ].flat_map { |prefix|
-      %W[ #{prefix}illion #{prefix}illiarde ]
-    }
 
     def to_text(number)
       convert_integer(number)
@@ -40,7 +31,7 @@ module Ziffern
       when 20..99        then twenty_to_99(number)
       when 100..999      then quantify_by_factor(100,  'hundert', number)
       when 1000..999_999 then quantify_by_factor(1000, 'tausend', number)
-      else bignums(number)
+      else fail TooLargeNumberError
       end
     end
 
@@ -61,44 +52,6 @@ module Ziffern
       text << convert(remainder) unless remainder.zero?
 
       text
-    end
-
-    def bignums(number)
-      number_of_millions, remainder = number.divmod(1000_000)
-
-      text = convert_millions(number_of_millions)
-      text << " " << convert_integer(remainder) unless remainder.zero?
-
-      text
-    end
-
-    def convert_millions(number_of_millions)
-      pairs = pair_with_big_names(number_of_millions)
-      fail TooLargeNumberError if pairs.size > BIG.size
-
-      pairs
-        .reject { |amount,| amount.zero? }
-        .map    { |amount, name| quantify_big_name(amount, name) }
-        .join(' ')
-    end
-
-    def quantify_big_name(amount, big_name)
-      quantity = convert(amount, 'eine')
-      big_name = big_name.sub(/(e?)$/, 'en') unless amount == 1
-
-      "#{quantity} #{big_name}"
-    end
-
-    # 12345678 => [[12, "Billion"], [345, "Milliarde"], [678, "Million"]]
-    def pair_with_big_names(number_of_millions)
-      number_groups = []
-
-      until number_of_millions.zero?
-        number_of_millions, last_3 = number_of_millions.divmod(1000)
-        number_groups << last_3
-      end
-
-      number_groups.zip(BIG).reverse
     end
 
   end

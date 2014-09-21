@@ -1,9 +1,9 @@
-require_relative "./integer_converter"
+require_relative "./big_integer_converter"
 
 module Ziffern
   class FloatConverter
 
-    def initialize(integer_converter = IntegerConverter.new)
+    def initialize(integer_converter = BigIntegerConverter.new)
       self.integer_converter = integer_converter
     end
 
