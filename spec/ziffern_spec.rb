@@ -3,10 +3,10 @@ require_relative '../lib/ziffern'
 describe Ziffern do
 
   def self.test_german_numbers(method_name = :to_text, hash)
-    hash.each do |integer, german|
+    hash.each do |input, output|
       instance_eval do
-        it "converts #{integer} to #{german}" do
-          expect(Ziffern.public_send(method_name, integer)).to eq german
+        it "converts #{input} to #{output}" do
+          expect(Ziffern.public_send(method_name, input)).to eq output
         end
       end
     end
@@ -98,6 +98,13 @@ describe Ziffern do
       expect { Ziffern.to_text("invalid")   }.to raise_error Ziffern::InvalidNumberError
       expect { Ziffern.to_text("invalid.5") }.to raise_error Ziffern::InvalidNumberError
       expect { Ziffern.to_text("5.5u")      }.to raise_error Ziffern::InvalidNumberError
+    end
+  end
+
+  # these are only used for TDD or to bump the test coverage to 100% - they are safe to delete
+  context 'implementation details (delete them if they fail alone)' do
+    it 'raises an error if the smaller integer converter gets a number over a million' do
+      expect { Ziffern::IntegerConverter.new.to_text(1000_000) }.to raise_error Ziffern::TooLargeNumberError
     end
   end
 
