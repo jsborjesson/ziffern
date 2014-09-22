@@ -22,8 +22,10 @@ module Ziffern
     end
 
     def convert_float(number)
-      result = [integer_converter.to_text(number)]
       decimals = get_decimals_as_string(number)
+      result   = []
+
+      result << integer_converter.to_text(number)
 
       unless decimals.empty?
         result << comma
