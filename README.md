@@ -11,6 +11,7 @@ it is not able to handle what you pass in.
 ```ruby
 require 'ziffern'
 
+# normal number conversion
 Ziffern.to_text 1          # => "eins"
 Ziffern.to_text -5         # => "minus fünf"
 Ziffern.to_text 12345      # => "zwölftausenddreihundertfünfundvierzig"
@@ -20,6 +21,13 @@ Ziffern.to_text '0.00'     # => "null Komma null null"
 Ziffern.to_text 10**125    # => "einhundert Vigintilliarden"
 Ziffern.to_text 'invalid'  # ~> Ziffern::InvalidNumberError
 Ziffern.to_text 10**126    # ~> Ziffern::TooLargeNumberError
+
+# currency
+Ziffern.to_euro 5      # => "fünf Euro",
+Ziffern.to_euro 5.0    # => "fünf Euro",
+Ziffern.to_euro 5.5    # => "fünf Euro und fünfzig Cent",
+Ziffern.to_euro 5.55   # => "fünf Euro und fünfundfünfzig Cent",
+Ziffern.to_euro 5.555  # => "fünf Euro und sechsundfünfzig Cent",
 ```
 
 ## Testing
