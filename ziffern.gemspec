@@ -9,6 +9,8 @@ Gem::Specification.new do |gem|
   gem.homepage      = "https://github.com/alcesleo/ziffern"
   gem.license       = "MIT"
 
+  gem.required_ruby_version = '>= 2.0'
+
   gem.files         = Dir['Rakefile', 'README*', 'LICENSE*', '{lib,spec}/**/*']
   gem.test_files    = Dir['spec/**/*']
   gem.require_paths = ["lib"]
