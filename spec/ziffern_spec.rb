@@ -88,6 +88,16 @@ describe Ziffern do
     })
   end
 
+  context 'currency conversion' do
+    test_german_numbers(:to_euro, {
+      5     => "fünf Euro",
+      5.0   => "fünf Euro",
+      5.5   => "fünf Euro und fünfzig Cent",
+      5.55  => "fünf Euro und fünfundfünfzig Cent",
+      5.555 => "fünf Euro und sechsundfünfzig Cent",
+    })
+  end
+
   context 'errors' do
     it 'raises an error if the number is bigger than it can handle' do
       expect { Ziffern.to_text(10 ** 126)  }.to raise_error Ziffern::TooLargeNumberError
