@@ -1,22 +1,32 @@
 module Ziffern
-  class IntegerConverter
+  class GermanInteger
 
     NINETEEN = %w[ null eins zwei drei vier fünf sechs sieben acht neun zehn elf zwölf
-                 dreizehn vierzehn fünfzehn sechzehn siebzehn achtzehn neunzehn ]
+                   dreizehn vierzehn fünfzehn sechzehn siebzehn achtzehn neunzehn ]
 
     TENS = [nil, nil] + %w[ zwanzig dreißig vierzig fünfzig sechzig siebzig achtzig neunzig ]
 
-    def to_text(number)
+    attr_reader :number
+
+    def initialize(number)
+      @number = number
+    end
+
+    def to_s
       convert_integer(number)
+    end
+
+    def to_i
+      number
     end
 
     private
 
     def convert_integer(number)
-      convert_sign(number) + convert(number.to_i.abs, 'eins')
+      convert_sign + convert(number.to_i.abs, 'eins')
     end
 
-    def convert_sign(number)
+    def convert_sign
       if number.to_f < 0
         "minus "
       else

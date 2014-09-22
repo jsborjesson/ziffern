@@ -1,12 +1,12 @@
-require_relative "./integer_converter"
+require_relative "./german_integer"
 
 module Ziffern
-  class BigIntegerConverter < IntegerConverter
+  class GermanBigInteger < GermanInteger
 
     # http://de.wikipedia.org/wiki/Zahlennamen
     BIG = %w[
-    M B Tr Quadr Quint Sext Sept Okt Non Dez Undez Dodez Tredez
-    Quattuordez Quindez Sedez Septendez Dodevigint Undevigint Vigint
+      M B Tr Quadr Quint Sext Sept Okt Non Dez Undez Dodez Tredez
+      Quattuordez Quindez Sedez Septendez Dodevigint Undevigint Vigint
     ].flat_map { |prefix|
       %W[ #{prefix}illion #{prefix}illiarde ]
     }

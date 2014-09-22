@@ -1,4 +1,4 @@
-require_relative "ziffern/float_converter"
+require_relative "ziffern/german_float"
 
 module Ziffern
   extend self
@@ -7,7 +7,7 @@ module Ziffern
   InvalidNumberError  = Class.new(ArgumentError)
 
   def to_text(number)
-    FloatConverter.new.to_text(number)
+    GermanFloat.new(number).to_s
   end
 
 end
