@@ -11,19 +11,21 @@ module Ziffern
       %W[ #{prefix}illion #{prefix}illiarde ]
     }
 
-    private
-
-    # override to take care of even bigger numbers
-    def convert(*args)
-      number = args[0]
-      if number >= 1000_000
-        convert_big_number(number)
+    def to_s
+      if has_millions?
+        convert_big_number
       else
         super
       end
     end
 
-    def convert_big_number(number)
+    private
+
+    def has_millions?
+      number.to_i >= 1000_000
+    end
+
+    def convert_big_number
       number_of_millions, remainder = number.divmod(1000_000)
 
       text = convert_millions(number_of_millions)
