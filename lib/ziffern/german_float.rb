@@ -20,6 +20,10 @@ module Ziffern
       end
     end
 
+    def to_f
+      number.to_f
+    end
+
     def integer
       integer_klass.new(number).to_s
     end

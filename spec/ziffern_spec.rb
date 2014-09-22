@@ -103,9 +103,6 @@ describe Ziffern do
 
   # these are only used for TDD or to bump the test coverage to 100% - they are safe to delete
   context 'implementation details (delete them if they fail alone)' do
-    it 'raises an error if the smaller integer converter gets a number over a million' do
-      expect { Ziffern::IntegerConverter.new.to_text(1000_000) }.to raise_error Ziffern::TooLargeNumberError
-    end
   end
 
 end
