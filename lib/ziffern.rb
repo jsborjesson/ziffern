@@ -1,5 +1,5 @@
 require_relative "ziffern/german_float"
-require_relative "ziffern/german_currency_float"
+require_relative "ziffern/german_currency"
 
 module Ziffern
   extend self
@@ -12,7 +12,7 @@ module Ziffern
   end
 
   def to_euro(amount)
-    GermanCurrencyFloat.new(amount).to_s
+    GermanCurrency.new(amount, 'Euro').to_s
   end
 
 end

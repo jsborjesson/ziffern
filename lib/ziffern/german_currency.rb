@@ -1,7 +1,7 @@
 require_relative "./german_float"
 
 module Ziffern
-  class GermanCurrencyFloat < GermanFloat
+  class GermanCurrency < GermanFloat
 
     def initialize(number, currency = 'Euro', cent = 'Cent')
       super(number)
