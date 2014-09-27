@@ -1,12 +1,12 @@
 require_relative "./german_big_integer"
 
 module Ziffern
-  class GermanFloat
+  class GermanFloat < GermanBigInteger
 
     attr_reader :number
 
-    def initialize(number, integer_klass = GermanBigInteger)
-      @number, @integer_klass = number, integer_klass
+    def initialize(number)
+      @number = number
       @comma = 'Komma'
 
       fail InvalidNumberError unless valid_number?
@@ -14,19 +14,23 @@ module Ziffern
 
     def to_s
       if has_decimals?
-        [integer, comma, decimals].join(' ')
+        [super, comma, decimals].join(' ')
       else
-        integer
+        super
       end
+    end
+
+    def to_i
+      number.to_i
     end
 
     def to_f
       number.to_f
     end
 
-    def integer
-      integer_klass.new(number).to_s
-    end
+    private
+
+    attr_reader :comma
 
     def decimals
       convert_digits(get_decimals_as_string)
@@ -36,9 +40,6 @@ module Ziffern
       not get_decimals_as_string.empty?
     end
 
-    private
-
-    attr_reader :integer_klass, :comma
 
     def valid_number?
       !!number.to_s[/\A-?\d+(\.\d+)?\z/]
@@ -49,7 +50,7 @@ module Ziffern
     end
 
     def convert_digits(digits)
-      digits.to_s.chars.map { |digit| integer_klass.new(digit) }.join(' ')
+      digits.to_s.chars.map { |digit| convert_integer(digit) }.join(' ')
     end
   end
 end

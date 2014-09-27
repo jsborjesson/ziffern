@@ -23,10 +23,10 @@ module Ziffern
     private
 
     def convert_integer(number)
-      convert_sign + convert(number.to_i.abs, 'eins')
+      convert_sign(number) + convert(number.to_i.abs, 'eins')
     end
 
-    def convert_sign
+    def convert_sign(number)
       if number.to_f < 0
         "minus "
       else

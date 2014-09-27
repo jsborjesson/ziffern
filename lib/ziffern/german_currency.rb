@@ -9,7 +9,7 @@ module Ziffern
     end
 
     def to_s
-      result = [integer, currency]
+      result = [convert_integer(number), currency]
 
       if has_cents?
         result << 'und' << decimals << cent
@@ -27,7 +27,7 @@ module Ziffern
     end
 
     def decimals
-      integer_klass.new(double_digit_rounded_decimals).to_s
+      convert_integer(double_digit_rounded_decimals)
     end
 
     def double_digit_rounded_decimals
