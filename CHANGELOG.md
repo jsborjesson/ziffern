@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.0.0.alpha
+
+- Changed main interface from `Ziffern.new.to_german(number)` to `Ziffern.to_text(number)`
+- Refactored from a single file into a more OO approach
+    - Moved files into lib and spec folders
+    - Broke up previous functionality into basic(`GermanInteger`), bignums(`GermanBigInteger`) and decimal(`GermanFloat`) conversion
+    - There are now composable classes from which you can inherit to get new behaviour easily
+    - The new classes can also be used by themselves without the module interface
+    - All number classes have `#to_i` and `#to_f` methods.
+- Added Ruby 2.0 version requirement
+- Added currency conversion with a `Ziffern.to_euro` method backed by the more general `GermanCurrency` class.
+
 ## v1.1.2
 
 Running the test is now the default task, just run `rake`.
