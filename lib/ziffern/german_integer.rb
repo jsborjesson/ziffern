@@ -1,5 +1,9 @@
+require 'forwardable'
 module Ziffern
   class GermanInteger
+
+    extend Forwardable
+    def_delegators :number, :to_i, :to_f
 
     NINETEEN = %w[ null eins zwei drei vier fünf sechs sieben acht neun zehn elf zwölf
                    dreizehn vierzehn fünfzehn sechzehn siebzehn achtzehn neunzehn ]
@@ -14,10 +18,6 @@ module Ziffern
 
     def to_s
       convert_integer(number)
-    end
-
-    def to_i
-      number.to_i
     end
 
     private

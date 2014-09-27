@@ -115,20 +115,28 @@ describe Ziffern do
     end
   end
 
+  context "convenience methods" do
+
+    [
+      Ziffern::GermanInteger,
+      Ziffern::GermanBigInteger,
+      Ziffern::GermanFloat,
+      Ziffern::GermanCurrency
+    ].each do |klass|
+      it "#{klass.name} has #to_f and #to_i" do
+        number = klass.new('44.5')
+        expect(number.to_i).to eq 44
+        expect(number.to_f).to eq 44.5
+      end
+
+    end
+  end
+
   # these are only used for TDD or to bump the test coverage to 100% - they are safe to delete
   context 'implementation details (delete them if they fail alone)' do
 
     it "raises TooLargeNumber if GermanInteger gets a number over a million" do
       expect { Ziffern::GermanInteger.new(1000_000).to_s }.to raise_error Ziffern::TooLargeNumberError
-    end
-
-    it "has to_f and to_i methods" do
-      float = Ziffern::GermanFloat.new('44.5')
-      expect(float.to_i).to eq 44
-      expect(float.to_f).to eq 44.5
-
-      int = Ziffern::GermanInteger.new('44')
-      expect(int.to_i).to eq 44
     end
 
   end

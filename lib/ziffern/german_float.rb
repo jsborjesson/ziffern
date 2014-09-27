@@ -20,14 +20,6 @@ module Ziffern
       end
     end
 
-    def to_i
-      number.to_i
-    end
-
-    def to_f
-      number.to_f
-    end
-
     private
 
     attr_reader :comma
