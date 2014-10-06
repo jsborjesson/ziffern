@@ -2,6 +2,8 @@
 
 **Number to text, in _German_!**
 
+(An improved and refactored version is in development in the `ziffern2` branch)
+
 Handles _positive and negative_ numbers up to **126 digits**, with _unlimited decimals_.
 
 Just create an instance of the class and use the `#to_german` method to convert numbers,
