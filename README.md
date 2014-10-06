@@ -2,7 +2,7 @@
 
 **Number to text, in _German_!**
 
-(An improved and refactored version is in development in the `ziffern2` branch)
+_(An improved and refactored version is in development in the `ziffern2` branch)_
 
 Handles _positive and negative_ numbers up to **126 digits**, with _unlimited decimals_.
 
