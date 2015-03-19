@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.4
+
+Bugfix release: fixing the reverted behaviour introduced in 1.1.3 where numbers like
+101000 got an s on the "ein" in the middle.
+
 ## v1.1.3
 
 Bugfix release: numbers ending with 01 are now correctly ending on "eins".
