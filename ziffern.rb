@@ -19,7 +19,9 @@ class Ziffern
 
   def to_german(number)
     fail InvalidNumberError unless valid_number?(number)
-    convert_sign(number) + convert_integer(number) + convert_decimals(number)
+    result = convert_sign(number) + convert_integer(number) + convert_decimals(number)
+    result << "s" if number.to_s.end_with?("01") && !result.end_with?("s")
+    result
   end
 
   private
@@ -65,7 +67,7 @@ class Ziffern
     amount, remainder = number.divmod(factor)
 
     text = convert(amount) + quantifier
-    text << convert(remainder, 'eins') unless remainder.zero?
+    text << convert(remainder) unless remainder.zero?
 
     text
   end

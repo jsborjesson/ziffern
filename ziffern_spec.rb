@@ -45,6 +45,8 @@ describe Ziffern do
     test_german_numbers({
       1000    => "eintausend",
       1001    => "eintausendeins",
+      101000  => "einhunderteintausend",
+      101001  => "einhunderteintausendeins",
       1234    => "eintausendzweihundertvierunddreißig",
       10_000  => "zehntausend",
       999_999 => "neunhundertneunundneunzigtausendneunhundertneunundneunzig",
