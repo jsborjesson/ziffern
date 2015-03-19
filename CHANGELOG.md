@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.3
+
+Bugfix release: numbers ending with 01 are now correctly ending on "eins".
+
+101 becomes "einhunderteins" instead of "einhundertein"
+
 ## v1.1.2
 
 Running the test is now the default task, just run `rake`.
