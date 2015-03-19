@@ -65,7 +65,7 @@ class Ziffern
     amount, remainder = number.divmod(factor)
 
     text = convert(amount) + quantifier
-    text << convert(remainder) unless remainder.zero?
+    text << convert(remainder, 'eins') unless remainder.zero?
 
     text
   end
