@@ -4,8 +4,8 @@ describe Ziffern do
 
   subject { Ziffern.new }
 
-  def self.test_german_numbers(hash)
-    hash.each do |integer, german|
+  def self.test_german_numbers(tests)
+    tests.each do |integer, german|
       instance_eval do
         it "converts #{integer} to #{german}" do
           expect(subject.to_german(integer)).to eq german
