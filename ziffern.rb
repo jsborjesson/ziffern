@@ -86,16 +86,16 @@ class Ziffern
   end
 
   def convert_integer(number)
-    convert(number.to_i.abs, 'eins')
+    convert(number.to_i.abs, "eins")
   end
 
-  def convert(number, one='ein')
+  def convert(number, one = "ein")
     case number
     when 1             then one
     when 0..19         then FIRST_TWENTY[number]
     when 20..99        then twenty_to_99(number)
-    when 100..999      then quantify_by_factor(100,  'hundert', number)
-    when 1000..999_999 then quantify_by_factor(1000, 'tausend', number)
+    when 100..999      then quantify_by_factor(100,  "hundert", number)
+    when 1000..999_999 then quantify_by_factor(1000, "tausend", number)
     else bignums(number)
     end
   end
@@ -135,12 +135,12 @@ class Ziffern
     pairs
       .reject { |amount,| amount.zero? }
       .map    { |amount, name| quantify_big_name(amount, name) }
-      .join(' ')
+      .join(" ")
   end
 
   def quantify_big_name(amount, big_name)
-    quantity = convert(amount, 'eine')
-    big_name = big_name.sub(/(e?)$/, 'en') unless amount == 1
+    quantity = convert(amount, "eine")
+    big_name = big_name.sub(/(e?)$/, "en") unless amount == 1
 
     "#{quantity} #{big_name}"
   end
@@ -159,9 +159,9 @@ class Ziffern
 
   def convert_decimals(number)
     decimals = get_decimals_as_string(number)
-    return '' if decimals.empty?
+    return "" if decimals.empty?
 
-    ' Komma ' + convert_digits(decimals)
+    " Komma " + convert_digits(decimals)
   end
 
   def get_decimals_as_string(number)
@@ -169,6 +169,6 @@ class Ziffern
   end
 
   def convert_digits(number)
-    number.to_s.chars.map { |digit| convert_integer(digit) }.join(' ')
+    number.to_s.chars.map { |digit| convert_integer(digit) }.join(" ")
   end
 end
