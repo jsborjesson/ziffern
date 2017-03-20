@@ -96,7 +96,7 @@ class Ziffern
     when 20..99        then twenty_to_99(number)
     when 100..999      then quantify_by_factor(100,  "hundert", number)
     when 1000..999_999 then quantify_by_factor(1000, "tausend", number)
-    else bignums(number)
+    else convert_large_number(number)
     end
   end
 
@@ -119,7 +119,7 @@ class Ziffern
     text
   end
 
-  def bignums(number)
+  def convert_large_number(number)
     number_of_millions, remainder = number.divmod(1000_000)
 
     text = convert_millions(number_of_millions)
