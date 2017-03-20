@@ -133,16 +133,17 @@ class Ziffern
     fail TooLargeNumberError if pairs.size > LARGE_NUMBERS.size
 
     pairs
-      .reject { |amount,| amount.zero? }
+      .reject { |amount, _| amount.zero? }
       .map    { |amount, name| quantify_big_name(amount, name) }
       .join(" ")
   end
 
   def quantify_big_name(amount, big_name)
-    quantity = convert(amount, "eine")
-    big_name = big_name.sub(/(e?)$/, "en") unless amount == 1
+    [convert(amount, "eine"), pluralize_big_name(amount, big_name)].join(" ")
+  end
 
-    "#{quantity} #{big_name}"
+  def pluralize_big_name(amount, big_name)
+    amount == 1 ? big_name : big_name.sub(/(e?)$/, "en")
   end
 
   # 12345678 => [[12, "Billion"], [345, "Milliarde"], [678, "Million"]]
