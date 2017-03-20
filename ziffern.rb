@@ -2,14 +2,61 @@ class Ziffern
 
   # http://de.wikipedia.org/wiki/Zahlennamen
 
-  NINETEEN = %w[ null eins zwei drei vier fünf sechs sieben acht neun zehn elf zwölf
-                 dreizehn vierzehn fünfzehn sechzehn siebzehn achtzehn neunzehn ]
+  FIRST_TWENTY = %w[
+    null
+    eins
+    zwei
+    drei
+    vier
+    fünf
+    sechs
+    sieben
+    acht
+    neun
+    zehn
+    elf
+    zwölf
+    dreizehn
+    vierzehn
+    fünfzehn
+    sechzehn
+    siebzehn
+    achtzehn
+    neunzehn
+  ]
 
-  TENS = [nil, nil] + %w[ zwanzig dreißig vierzig fünfzig sechzig siebzig achtzig neunzig ]
+  TENS = [nil, nil] + %w[
+    zwanzig
+    dreißig
+    vierzig
+    fünfzig
+    sechzig
+    siebzig
+    achtzig
+    neunzig
+  ]
 
-  BIG = %w[
-    M B Tr Quadr Quint Sext Sept Okt Non Dez Undez Dodez Tredez
-    Quattuordez Quindez Sedez Septendez Dodevigint Undevigint Vigint
+  LARGE_NUMBERS = %w[
+    M
+    B
+    Tr
+    Quadr
+    Quint
+    Sext
+    Sept
+    Okt
+    Non
+    Dez
+    Undez
+    Dodez
+    Tredez
+    Quattuordez
+    Quindez
+    Sedez
+    Septendez
+    Dodevigint
+    Undevigint
+    Vigint
   ].flat_map { |prefix|
     %W[ #{prefix}illion #{prefix}illiarde ]
   }
@@ -45,7 +92,7 @@ class Ziffern
   def convert(number, one='ein')
     case number
     when 1             then one
-    when 0..19         then NINETEEN[number]
+    when 0..19         then FIRST_TWENTY[number]
     when 20..99        then twenty_to_99(number)
     when 100..999      then quantify_by_factor(100,  'hundert', number)
     when 1000..999_999 then quantify_by_factor(1000, 'tausend', number)
@@ -83,7 +130,7 @@ class Ziffern
 
   def convert_millions(number_of_millions)
     pairs = pair_with_big_names(number_of_millions)
-    fail TooLargeNumberError if pairs.size > BIG.size
+    fail TooLargeNumberError if pairs.size > LARGE_NUMBERS.size
 
     pairs
       .reject { |amount,| amount.zero? }
@@ -107,7 +154,7 @@ class Ziffern
       number_groups << last_3
     end
 
-    number_groups.zip(BIG).reverse
+    number_groups.zip(LARGE_NUMBERS).reverse
   end
 
   def convert_decimals(number)
