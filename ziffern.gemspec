@@ -4,7 +4,7 @@ Gem::Specification.new do |gem|
   gem.name          = "ziffern"
   gem.version       = "1.1.4"
   gem.author        = "Jimmy Börjesson"
-  gem.email         = "lagginglion@gmail.com"
+  gem.email         = "alcesleo@gmail.com"
   gem.summary       = "Converts numbers to text, in German."
   gem.homepage      = "https://github.com/alcesleo/ziffern"
   gem.license       = "MIT"
