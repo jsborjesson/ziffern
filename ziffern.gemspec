@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |gem|
   gem.name          = "ziffern"
-  gem.version       = "1.1.4"
+  gem.version       = "1.1.5"
   gem.author        = "Jimmy Börjesson"
   gem.email         = "alcesleo@gmail.com"
   gem.summary       = "Converts numbers to text, in German."

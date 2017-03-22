@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.5
+
+Refactoring, no external differences should be visible.
+
 ## v1.1.4
 
 Bugfix release: fixing the reverted behaviour introduced in 1.1.3 where numbers like
