@@ -78,11 +78,7 @@ class Ziffern
   end
 
   def convert_sign(number)
-    if number.to_f < 0
-      "minus "
-    else
-      ""
-    end
+    number.to_f < 0 ? "minus " : ""
   end
 
   def convert_integer(number)
@@ -129,10 +125,13 @@ class Ziffern
   end
 
   def convert_millions(number_of_millions)
-    pairs = pair_with_big_names(number_of_millions)
-    fail TooLargeNumberError if pairs.size > LARGE_NUMBERS.size
+    named_number_groups = slice_by_factor(number_of_millions, 1000)
+    large_number_names  = large_number_names(named_number_groups.count)
 
-    pairs
+    fail TooLargeNumberError if named_number_groups.size > LARGE_NUMBERS.size
+
+    named_number_groups
+      .zip(large_number_names)
       .reject { |amount, _| amount.zero? }
       .map    { |amount, name| quantify_big_name(amount, name) }
       .join(" ")
@@ -146,16 +145,22 @@ class Ziffern
     amount == 1 ? big_name : big_name.sub(/(e?)$/, "en")
   end
 
-  # 12345678 => [[12, "Billion"], [345, "Milliarde"], [678, "Million"]]
-  def pair_with_big_names(number_of_millions)
-    number_groups = []
+  # slice_by_factor(12345678, 1000) => [12, 345, 678]
+  def slice_by_factor(number, factor)
+    result    = []
+    remainder = number
 
-    until number_of_millions.zero?
-      number_of_millions, last_3 = number_of_millions.divmod(1000)
-      number_groups << last_3
+    until remainder.zero?
+      remainder, slice = remainder.divmod(1000)
+      result << slice
     end
 
-    number_groups.zip(LARGE_NUMBERS).reverse
+    result.reverse
+  end
+
+  # large_number_names(3) => ["Billion", "Milliarde", "Million"]
+  def large_number_names(count)
+    LARGE_NUMBERS.take(count).reverse
   end
 
   def convert_decimals(number)
