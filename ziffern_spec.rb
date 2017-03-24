@@ -1,7 +1,6 @@
-require './ziffern'
+require "./ziffern"
 
 describe Ziffern do
-
   subject { Ziffern.new }
 
   def self.test_german_numbers(tests)
@@ -14,7 +13,7 @@ describe Ziffern do
     end
   end
 
-  context 'numbers up to 20' do
+  context "numbers up to 20" do
     test_german_numbers(
       0  => "null",
       1  => "eins",
@@ -23,7 +22,7 @@ describe Ziffern do
     )
   end
 
-  context 'numbers up to 100' do
+  context "numbers up to 100" do
     test_german_numbers(
       20 => "zwanzig",
       21 => "einundzwanzig",
@@ -32,7 +31,7 @@ describe Ziffern do
     )
   end
 
-  context 'numbers up to 1000' do
+  context "numbers up to 1000" do
     test_german_numbers(
       100 => "einhundert",
       101 => "einhunderteins",
@@ -41,30 +40,30 @@ describe Ziffern do
     )
   end
 
-  context 'numbers up to one million' do
+  context "numbers up to one million" do
     test_german_numbers(
-      1000    => "eintausend",
-      1001    => "eintausendeins",
-      101000  => "einhunderteintausend",
-      101001  => "einhunderteintausendeins",
-      1234    => "eintausendzweihundertvierunddreißig",
+      1_000   => "eintausend",
+      1_001   => "eintausendeins",
+      101_000 => "einhunderteintausend",
+      101_001 => "einhunderteintausendeins",
+      1_234   => "eintausendzweihundertvierunddreißig",
       10_000  => "zehntausend",
       999_999 => "neunhundertneunundneunzigtausendneunhundertneunundneunzig",
     )
   end
 
-  context 'really big numbers' do
+  context "really big numbers" do
     test_german_numbers(
-      1_000_000     => "eine Million",
-      1_000_001     => "eine Million eins",
-      2_204_510     => "zwei Millionen zweihundertviertausendfünfhundertzehn",
-      1_203_400_021 => "eine Milliarde zweihundertdrei Millionen vierhunderttausendeinundzwanzig",
+      1_000_000             => "eine Million",
+      1_000_001             => "eine Million eins",
+      2_204_510             => "zwei Millionen zweihundertviertausendfünfhundertzehn",
+      1_203_400_021         => "eine Milliarde zweihundertdrei Millionen vierhunderttausendeinundzwanzig",
       3_000_000_000_000_099 => "drei Billiarden neunundneunzig",
-      10 ** 123 => "eine Vigintilliarde"
+      10 ** 123             => "eine Vigintilliarde",
     )
   end
 
-  context 'negative numbers' do
+  context "negative numbers" do
     test_german_numbers(
       -1  => "minus eins",
       -20 => "minus zwanzig",
@@ -74,37 +73,36 @@ describe Ziffern do
     )
   end
 
-  context 'decimals' do
+  context "decimals" do
     test_german_numbers(
       0.1234  => "null Komma eins zwei drei vier",
       5.6789  => "fünf Komma sechs sieben acht neun",
       5.0     => "fünf Komma null",
       -5.6    => "minus fünf Komma sechs",
       -567.89 => "minus fünfhundertsiebenundsechzig Komma acht neun",
-      -0.001  => "minus null Komma null null eins"
+      -0.001  => "minus null Komma null null eins",
     )
   end
 
-  context 'strings' do
+  context "strings" do
     test_german_numbers(
-      '-0'     => "null",
-      '-123'   => "minus einhundertdreiundzwanzig",
-      '-123.1' => "minus einhundertdreiundzwanzig Komma eins",
-      '5.00'   => "fünf Komma null null",
+      "-0"     => "null",
+      "-123"   => "minus einhundertdreiundzwanzig",
+      "-123.1" => "minus einhundertdreiundzwanzig Komma eins",
+      "5.00"   => "fünf Komma null null",
     )
   end
 
-  context 'errors' do
-    it 'raises an error if the number is bigger than it can handle' do
+  context "errors" do
+    it "raises an error if the number is bigger than it can handle" do
       expect { subject.to_german(10 ** 126) }.to raise_error Ziffern::TooLargeNumberError
       expect { subject.to_german(-10 ** 126) }.to raise_error Ziffern::TooLargeNumberError
     end
 
-    it 'raises an error on faulty input' do
+    it "raises an error on faulty input" do
       expect { subject.to_german("invalid") }.to raise_error Ziffern::InvalidNumberError
       expect { subject.to_german("invalid.5") }.to raise_error Ziffern::InvalidNumberError
       expect { subject.to_german("5.5u") }.to raise_error Ziffern::InvalidNumberError
     end
   end
-
 end
