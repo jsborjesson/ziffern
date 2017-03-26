@@ -9,8 +9,8 @@ Gem::Specification.new do |gem|
   gem.homepage      = "https://github.com/alcesleo/ziffern"
   gem.license       = "MIT"
 
-  gem.files         = %w{ README.md ziffern.rb ziffern_spec.rb }
-  gem.test_files    = %w{ ziffern_spec.rb }
+  gem.files         = %w[README.md ziffern.rb ziffern_spec.rb]
+  gem.test_files    = %w[ziffern_spec.rb]
   gem.require_paths = ["."]
 
   gem.add_development_dependency "bundler", "~> 1.6"

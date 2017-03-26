@@ -59,7 +59,7 @@ describe Ziffern do
       2_204_510             => "zwei Millionen zweihundertviertausendfünfhundertzehn",
       1_203_400_021         => "eine Milliarde zweihundertdrei Millionen vierhunderttausendeinundzwanzig",
       3_000_000_000_000_099 => "drei Billiarden neunundneunzig",
-      10 ** 123             => "eine Vigintilliarde",
+      10**123               => "eine Vigintilliarde",
     )
   end
 
@@ -95,8 +95,8 @@ describe Ziffern do
 
   context "errors" do
     it "raises an error if the number is bigger than it can handle" do
-      expect { subject.to_german(10 ** 126) }.to raise_error Ziffern::TooLargeNumberError
-      expect { subject.to_german(-10 ** 126) }.to raise_error Ziffern::TooLargeNumberError
+      expect { subject.to_german(10**126) }.to raise_error Ziffern::TooLargeNumberError
+      expect { subject.to_german(-10**126) }.to raise_error Ziffern::TooLargeNumberError
     end
 
     it "raises an error on faulty input" do

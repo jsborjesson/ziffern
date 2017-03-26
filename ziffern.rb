@@ -1,5 +1,4 @@
 class Ziffern
-
   # http://de.wikipedia.org/wiki/Zahlennamen
 
   FIRST_TWENTY = %w[
@@ -23,9 +22,9 @@ class Ziffern
     siebzehn
     achtzehn
     neunzehn
-  ]
+  ].freeze
 
-  TENS = [nil, nil] + %w[
+  TENS = ([nil, nil] + %w[
     zwanzig
     dreißig
     vierzig
@@ -34,7 +33,7 @@ class Ziffern
     siebzig
     achtzig
     neunzig
-  ]
+  ]).freeze
 
   LARGE_NUMBERS = %w[
     M
@@ -58,8 +57,8 @@ class Ziffern
     Undevigint
     Vigint
   ].flat_map { |prefix|
-    %W[ #{prefix}illion #{prefix}illiarde ]
-  }
+    %W[#{prefix}illion #{prefix}illiarde]
+  }.freeze
 
   TooLargeNumberError = Class.new(ArgumentError)
   InvalidNumberError  = Class.new(ArgumentError)
@@ -74,7 +73,7 @@ class Ziffern
   private
 
   def valid_number?(number)
-    !!number.to_s[/\A-?\d+(\.\d+)?\z/]
+    !number.to_s.match(/\A-?\d+(\.\d+)?\z/).nil?
   end
 
   def convert_sign(number)
@@ -116,7 +115,7 @@ class Ziffern
   end
 
   def convert_large_number(number)
-    number_of_millions, remainder = number.divmod(1000_000)
+    number_of_millions, remainder = number.divmod(1_000_000)
 
     text = convert_millions(number_of_millions)
     text << " " << convert_integer(remainder) unless remainder.zero?
@@ -151,7 +150,7 @@ class Ziffern
     remainder = number
 
     until remainder.zero?
-      remainder, slice = remainder.divmod(1000)
+      remainder, slice = remainder.divmod(factor)
       result << slice
     end
 
