@@ -3,7 +3,7 @@ class Ziffern
 
   FIRST_TWENTY = %w[
     null
-    eins
+    WRONG_INDEX
     zwei
     drei
     vier
@@ -24,7 +24,9 @@ class Ziffern
     neunzehn
   ].freeze
 
-  TENS = ([nil, nil] + %w[
+  TENS = %w[
+    WRONG_INDEX
+    WRONG_INDEX
     zwanzig
     dreißig
     vierzig
@@ -33,7 +35,7 @@ class Ziffern
     siebzig
     achtzig
     neunzig
-  ]).freeze
+  ].freeze
 
   LARGE_NUMBERS = %w[
     M
