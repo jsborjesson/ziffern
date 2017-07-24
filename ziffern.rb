@@ -132,12 +132,12 @@ class Ziffern
   end
 
   def convert_millions(number_of_millions)
-    named_number_groups = slice_by_factor(number_of_millions, 1000)
-    large_number_names  = large_number_names(named_number_groups.count)
+    large_number_groups = large_number_groups(number_of_millions)
+    large_number_names  = large_number_names(large_number_groups.count)
 
-    fail TooLargeNumberError if named_number_groups.size > LARGE_NUMBERS.size
+    fail TooLargeNumberError if large_number_groups.size > LARGE_NUMBERS.size
 
-    named_number_groups
+    large_number_groups
       .zip(large_number_names)
       .reject { |amount, _| amount.zero? }
       .map    { |amount, name| quantify_big_name(amount, name) }
@@ -152,14 +152,14 @@ class Ziffern
     amount == 1 ? big_name : big_name.sub(/(e?)$/, "en")
   end
 
-  # slice_by_factor(12345678, 1000) => [12, 345, 678]
-  def slice_by_factor(number, factor)
+  # large_number_groups(12345678) => [12, 345, 678]
+  def large_number_groups(number_of_millions)
     result    = []
-    remainder = number
+    remainder = number_of_millions
 
     until remainder.zero?
-      remainder, slice = remainder.divmod(factor)
-      result << slice
+      remainder, large_number_group = remainder.divmod(1000)
+      result << large_number_group
     end
 
     result.reverse
