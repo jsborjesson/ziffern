@@ -71,26 +71,47 @@ class Ziffern
   TooLargeNumberError = Class.new(ArgumentError)
   InvalidNumberError  = Class.new(ArgumentError)
 
-  def to_german(number)
-    validate_number!(number)
+  attr_reader :number
+  private :number
 
-    [convert_sign(number), convert_integer(number), convert_decimals(number)].compact.join(" ")
+  def self.to_german(number)
+    new(number).to_german
+  end
+
+  def initialize(number)
+    @number = number
+  end
+
+  def to_german
+    validate_number!
+
+    [converted_sign, converted_integer, converted_decimals].compact.join(" ")
   end
 
   private
 
-  def validate_number!(number)
+  def validate_number!
     Float(number)
   rescue ArgumentError
     raise InvalidNumberError
   end
 
-  def convert_sign(number)
+  def converted_sign
     return MINUS if number.to_f.negative?
   end
 
+  def converted_integer
+    convert_integer(number.to_i.abs)
+  end
+
+  def converted_decimals
+    return if decimals.empty?
+
+    [POINT, converted_decimals_digits].join(" ")
+  end
+
   def convert_integer(number)
-    convert(number.to_i.abs).sub(/(ein)$/, "eins")
+    convert(number).sub(/(ein)$/, "eins")
   end
 
   def convert(number)
@@ -176,18 +197,11 @@ class Ziffern
     LARGE_NUMBERS.take(count).reverse
   end
 
-  def convert_decimals(number)
-    decimals = get_decimals_as_string(number)
-    return if decimals.empty?
-
-    [POINT, convert_digits(decimals)].join(" ")
+  def converted_decimals_digits
+    decimals.to_s.chars.map { |digit| convert_integer(digit.to_i) }.join(" ")
   end
 
-  def get_decimals_as_string(number)
+  def decimals
     number.to_s[/\.(\d+)/, 1].to_s
-  end
-
-  def convert_digits(number)
-    number.to_s.chars.map { |digit| convert_integer(digit) }.join(" ")
   end
 end

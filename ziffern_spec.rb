@@ -1,13 +1,11 @@
 require "./ziffern"
 
 describe Ziffern do
-  subject { Ziffern.new }
-
   def self.test_german_numbers(tests)
     tests.each do |integer, german|
       instance_eval do
         it "converts #{integer} to #{german}" do
-          expect(subject.to_german(integer)).to eq german
+          expect(described_class.to_german(integer)).to eq german
         end
       end
     end
@@ -98,14 +96,14 @@ describe Ziffern do
 
   context "errors" do
     it "raises an error if the number is bigger than it can handle" do
-      expect { subject.to_german(10**126) }.to raise_error Ziffern::TooLargeNumberError
-      expect { subject.to_german(-10**126) }.to raise_error Ziffern::TooLargeNumberError
+      expect { described_class.to_german(10**126) }.to raise_error Ziffern::TooLargeNumberError
+      expect { described_class.to_german(-10**126) }.to raise_error Ziffern::TooLargeNumberError
     end
 
     it "raises an error on faulty input" do
-      expect { subject.to_german("invalid") }.to raise_error Ziffern::InvalidNumberError
-      expect { subject.to_german("invalid.5") }.to raise_error Ziffern::InvalidNumberError
-      expect { subject.to_german("5.5u") }.to raise_error Ziffern::InvalidNumberError
+      expect { described_class.to_german("invalid") }.to raise_error Ziffern::InvalidNumberError
+      expect { described_class.to_german("invalid.5") }.to raise_error Ziffern::InvalidNumberError
+      expect { described_class.to_german("5.5u") }.to raise_error Ziffern::InvalidNumberError
     end
   end
 end
