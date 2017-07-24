@@ -1,6 +1,12 @@
 class Ziffern
   # http://de.wikipedia.org/wiki/Zahlennamen
 
+  AND      = "und".freeze
+  MINUS    = "minus".freeze
+  POINT    = "Komma".freeze
+  HUNDRED  = "hundert".freeze
+  THOUSAND = "tausend".freeze
+
   FIRST_TWENTY = %w[
     null
     WRONG_INDEX
@@ -67,7 +73,7 @@ class Ziffern
 
   def to_german(number)
     fail InvalidNumberError unless valid_number?(number)
-    result = convert_sign(number) + convert_integer(number) + convert_decimals(number)
+    result = [convert_sign(number), convert_integer(number), convert_decimals(number)].join(" ").strip
     result << "s" if number.to_s.end_with?("01") && !result.end_with?("s")
     result
   end
@@ -79,7 +85,7 @@ class Ziffern
   end
 
   def convert_sign(number)
-    number.to_f < 0 ? "minus " : ""
+    number.to_f.negative? ? MINUS : ""
   end
 
   def convert_integer(number)
@@ -91,8 +97,8 @@ class Ziffern
     when 1             then one
     when 0..19         then FIRST_TWENTY[number]
     when 20..99        then twenty_to_99(number)
-    when 100..999      then quantify_by_factor(100,  "hundert", number)
-    when 1000..999_999 then quantify_by_factor(1000, "tausend", number)
+    when 100..999      then quantify_by_factor(100,  HUNDRED, number)
+    when 1000..999_999 then quantify_by_factor(1000, THOUSAND, number)
     else convert_large_number(number)
     end
   end
@@ -103,7 +109,7 @@ class Ziffern
     if remainder.zero?
       TENS[ten]
     else
-      "#{convert(remainder)}und#{TENS[ten]}"
+      [convert(remainder), AND, TENS[ten]].join
     end
   end
 
@@ -168,7 +174,7 @@ class Ziffern
     decimals = get_decimals_as_string(number)
     return "" if decimals.empty?
 
-    " Komma " + convert_digits(decimals)
+    [POINT, convert_digits(decimals)].join(" ")
   end
 
   def get_decimals_as_string(number)
