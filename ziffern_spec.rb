@@ -42,13 +42,15 @@ describe Ziffern do
 
   context "numbers up to one million" do
     test_german_numbers(
-      1_000   => "eintausend",
-      1_001   => "eintausendeins",
-      101_000 => "einhunderteintausend",
-      101_001 => "einhunderteintausendeins",
-      1_234   => "eintausendzweihundertvierunddreißig",
-      10_000  => "zehntausend",
-      999_999 => "neunhundertneunundneunzigtausendneunhundertneunundneunzig",
+      1_000     => "eintausend",
+      1_001     => "eintausendeins",
+      100_000   => "einhunderttausend",
+      101_000   => "einhunderteintausend",
+      101_001   => "einhunderteintausendeins",
+      1_101_101 => "eine Million einhunderteintausendeinhunderteins",
+      1_234     => "eintausendzweihundertvierunddreißig",
+      10_000    => "zehntausend",
+      999_999   => "neunhundertneunundneunzigtausendneunhundertneunundneunzig",
     )
   end
 
@@ -78,6 +80,7 @@ describe Ziffern do
       0.1234  => "null Komma eins zwei drei vier",
       5.6789  => "fünf Komma sechs sieben acht neun",
       5.0     => "fünf Komma null",
+      1.1     => "eins Komma eins",
       -5.6    => "minus fünf Komma sechs",
       -567.89 => "minus fünfhundertsiebenundsechzig Komma acht neun",
       -0.001  => "minus null Komma null null eins",
