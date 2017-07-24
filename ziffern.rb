@@ -72,15 +72,17 @@ class Ziffern
   InvalidNumberError  = Class.new(ArgumentError)
 
   def to_german(number)
-    fail InvalidNumberError unless valid_number?(number)
+    validate_number!(number)
 
     [convert_sign(number), convert_integer(number), convert_decimals(number)].compact.join(" ")
   end
 
   private
 
-  def valid_number?(number)
-    !number.to_s.match(/\A-?\d+(\.\d+)?\z/).nil?
+  def validate_number!(number)
+    Float(number)
+  rescue ArgumentError
+    raise InvalidNumberError
   end
 
   def convert_sign(number)
