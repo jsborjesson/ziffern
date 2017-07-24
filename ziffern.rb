@@ -73,7 +73,7 @@ class Ziffern
 
   def to_german(number)
     fail InvalidNumberError unless valid_number?(number)
-    result = [convert_sign(number), convert_integer(number), convert_decimals(number)].join(" ").strip
+    result = [convert_sign(number), convert_integer(number), convert_decimals(number)].compact.join(" ")
     result << "s" if number.to_s.end_with?("01") && !result.end_with?("s")
     result
   end
@@ -85,7 +85,7 @@ class Ziffern
   end
 
   def convert_sign(number)
-    number.to_f.negative? ? MINUS : ""
+    return MINUS if number.to_f.negative?
   end
 
   def convert_integer(number)
@@ -172,7 +172,7 @@ class Ziffern
 
   def convert_decimals(number)
     decimals = get_decimals_as_string(number)
-    return "" if decimals.empty?
+    return if decimals.empty?
 
     [POINT, convert_digits(decimals)].join(" ")
   end
