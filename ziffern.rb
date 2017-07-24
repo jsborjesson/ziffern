@@ -140,16 +140,17 @@ class Ziffern
     large_number_groups
       .zip(large_number_names)
       .reject { |amount, _| amount.zero? }
-      .map    { |amount, name| quantify_big_name(amount, name) }
+      .map    { |amount, name| quantify_large_number(amount, name) }
       .join(" ")
   end
 
-  def quantify_big_name(amount, big_name)
-    [convert(amount, "eine"), pluralize_big_name(amount, big_name)].join(" ")
+  def quantify_large_number(amount, large_number_name)
+    [convert(amount, "eine"), pluralize_large_number(amount, large_number_name)].join(" ")
   end
 
-  def pluralize_big_name(amount, big_name)
-    amount == 1 ? big_name : big_name.sub(/(e?)$/, "en")
+  def pluralize_large_number(amount, large_number_name)
+    return large_number_name if amount == 1
+    large_number_name.sub(/(e?)$/, "en")
   end
 
   # large_number_groups(12345678) => [12, 345, 678]
