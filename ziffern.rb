@@ -9,7 +9,7 @@ class Ziffern
 
   FIRST_TWENTY = %w[
     null
-    WRONG_INDEX
+    ein
     zwei
     drei
     vier
@@ -73,9 +73,8 @@ class Ziffern
 
   def to_german(number)
     fail InvalidNumberError unless valid_number?(number)
-    result = [convert_sign(number), convert_integer(number), convert_decimals(number)].compact.join(" ")
-    result << "s" if number.to_s.end_with?("01") && !result.end_with?("s")
-    result
+
+    [convert_sign(number), convert_integer(number), convert_decimals(number)].compact.join(" ")
   end
 
   private
@@ -89,12 +88,11 @@ class Ziffern
   end
 
   def convert_integer(number)
-    convert(number.to_i.abs, "eins")
+    convert(number.to_i.abs).sub(/(ein)$/, "eins")
   end
 
-  def convert(number, one = "ein")
+  def convert(number)
     case number
-    when 1             then one
     when 0..19         then FIRST_TWENTY[number]
     when 20..99        then twenty_to_99(number)
     when 100..999      then quantify_by_factor(100,  HUNDRED, number)
@@ -145,7 +143,12 @@ class Ziffern
   end
 
   def quantify_large_number(amount, large_number_name)
-    [convert(amount, "eine"), pluralize_large_number(amount, large_number_name)].join(" ")
+    [feminine_convert(amount), pluralize_large_number(amount, large_number_name)].join(" ")
+  end
+
+  def feminine_convert(number)
+    return "eine" if number == 1
+    convert(number)
   end
 
   def pluralize_large_number(amount, large_number_name)
