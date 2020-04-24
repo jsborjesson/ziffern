@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["."]
 
   gem.add_development_dependency "bundler", "~> 1.6"
-  gem.add_development_dependency "rake", "~> 10.0"
+  gem.add_development_dependency "rake", "~> 12.3"
   gem.add_development_dependency "rspec", "~> 3.0"
   gem.add_development_dependency "rubocop", "~> 0.48"
 end
