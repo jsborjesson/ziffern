@@ -117,7 +117,7 @@ class Ziffern
     amount, remainder = number.divmod(factor)
 
     text = convert(amount) + quantifier
-    text << convert(remainder) unless remainder.zero?
+    text += convert(remainder) unless remainder.zero?
 
     text
   end
@@ -126,7 +126,7 @@ class Ziffern
     number_of_millions, remainder = number.divmod(1_000_000)
 
     text = convert_millions(number_of_millions)
-    text << " " << convert_integer(remainder) unless remainder.zero?
+    text = "#{text} #{convert_integer(remainder)}" unless remainder.zero?
 
     text
   end
