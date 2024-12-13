@@ -139,7 +139,7 @@ class Ziffern
 
     large_number_groups
       .zip(large_number_names)
-      .reject { |amount, _| amount.zero? }
+      .reject { |amount_name| amount_name[0].zero? } # Destructuring doesn't work here in Opal for some reason
       .map    { |amount, name| quantify_large_number(amount, name) }
       .join(" ")
   end
